@@ -21,17 +21,17 @@
 
 <div id="app">
 
-<div style=“height:1200px”> HEADER</div>
+<div style=“padding-top:300px;padding-bottom:300px”> HEADER</div>
 
 <div style="display: flex; justify-content: center">	
   <v-stepper ref="stepper" :items="['Trade mark', 'TM Classes', 'Search', 'Owner', 'Review & pay']" :key="stepperKey" v-model="currentStep"  editable style="width:100%;max-width:1200px;">
   
  <template v-slot:item.1>
-<div style=“height:1200px”> STEP 1 </div>
+<div tyle=“padding-top:700px;padding-bottom:700px”> STEP 1 </div>
 </template>
 
 <template v-slot:item.2>
-<div style=“height:1200px”> STEP 2 </div>
+<div tyle=“padding-top:700px;padding-bottom:700px”> STEP 2 </div>
 </template>
 
 <template v-slot:item.3>
