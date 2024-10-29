@@ -21,31 +21,31 @@
 
 <div id="app">
 
-<div style=“padding-top:300px;padding-bottom:300px”> HEADER</div>
+<div class="header"> HEADER</div>
 
 <div style="display: flex; justify-content: center">	
   <v-stepper ref="stepper" :items="['Trade mark', 'TM Classes', 'Search', 'Owner', 'Review & pay']" :key="stepperKey" v-model="currentStep"  editable style="width:100%;max-width:1200px;">
   
  <template v-slot:item.1>
-<div tyle=“padding-top:700px;padding-bottom:700px”> STEP 1 </div>
+<div class="step-container"> STEP 1 </div>
 </template>
 
 <template v-slot:item.2>
-<div tyle=“padding-top:700px;padding-bottom:700px”> STEP 2 </div>
+<div class="step-container"> STEP 2 </div>
 </template>
 
 <template v-slot:item.3>
-<div tyle=“padding-top:700px;padding-bottom:700px”> STEP 3 </div>
+<div class="step-container"> STEP 3 </div>
     </template>
 
 
   
 <template v-slot:item.4>
-<div tyle=“padding-top:700px;padding-bottom:700px”> STEP 4 </div>
+<div class="step-container"> STEP 4 </div>
 </template>
 
 <template v-slot:item.5>
-<div tyle=“padding-top:700px;padding-bottom:700px”> STEP 4 </div>
+<div class="step-container"> STEP 4 </div>
 </template>
 
 
@@ -59,7 +59,33 @@
 </div>
 
   </div>
-  
+
+<style>
+/* Set header height */
+.header {
+    height: 300px; /* Specify desired height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+}
+
+/* Set stepper container height */
+.step-container {
+    height: 1200px; /* Specify desired height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+/* Optional: center align content */
+.header h1, .step-container {
+    text-align: center;
+}
+	
+</style>
   
 <script>
 
