@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@3.5.4/dist/vuetify.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/vuetify@3.5.4/dist/vuetify.min.css" rel="stylesheet">
+
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST</title>
+    
+</head>
+<body>
+
+<div id="app">
+
+<div style="display: flex; justify-content: center">	
+  <v-stepper ref="stepper" :items="['Trade mark', 'TM Classes', 'Search', 'Owner', 'Review & pay']" :key="stepperKey" v-model="currentStep"  editable style="width:100%;max-width:1200px;">
+  
+ <template v-slot:item.3>
+<div style=“height:1200px”>
+</template>
+
+<template v-slot:item.2>
+<div style=“height:1200px”>
+</template>
+
+<template v-slot:item.1>
+<div style=“height:1200px”>
+    </template>
+
+
+  
+<template v-slot:item.2>
+<div style=“height:1200px”>
+</template>
+
+<template v-slot:item.5>
+<div style=“height:1200px”>
+</template>
+
+
+<v-stepper-actions style="margin-top-20px"
+      :disabled="disabled"
+      @click:next="goToNextStep()"
+      @click:prev="goToPreviousStep()"
+    ></v-stepper-actions>
+
+</v-stepper>
+</div>
+
+  </div>
+  
+  
+<script>
+
+  const { createApp, computed, ref, reactive, watch, onMounted, nextTick } = Vue
+	const { createVuetify } = Vuetify
+	const { marked } = window;
+
+// 	const { createVueMultiselect } = VueMultiselect
+
+
+	const vuetify = createVuetify()
+	
+  app = createApp(
+		{
+		// components: {
+    //   'vue-multiselect': VueMultiselect
+    // },
+    setup() {
+			
+	var currentStep = ref(1);
+	var stepperKey = ref(0);
+	const increaseKey = () => {
+        stepperKey++
+      };				
+	const stepper = ref(null); // defining the stepper ref
+			
+				
+			const goToNextStep = () => {
+// 					console.log('Next Step');
+					next();
+					scrollToStepperTop();
+			};
+				
+				const next = () => {
+					if (currentStep.value < 5) {
+						currentStep.value += 1;
+						stepperKey.value++;
+					}
+				};
+
+
+			const goToPreviousStep = () => {
+					prev()
+					scrollToStepperTop();
+			};
+				
+			const prev = () => {
+				currentStep.value -= 1;
+				stepperKey.value--;
+			};	
+				
+
+				
+			const scrollToStepperTop = async () => {
+// 				console.log('scrollToStepperTop')
+				const stepperElement = stepper.value?.$el || stepper.value; // For some Vue libraries, you might need .value.$el
+			
+				console.log(stepperElement)
+				if (stepperElement) {
+// 					console.log('stepper element found')
+					 stepperElement.scrollIntoView({
+// 							behavior: 'smooth',
+// 							block: 'start',
+					});
+				}
+			
+			};
+      return {
+				goToNextStep,
+				goToPreviousStep,
+				scrollToStepperTop,
+				stepper,
+				
+// 				stepperNext,
+				currentStep,
+				stepperKey,
+				
+
+      }
+    },
+  }
+)
+// Register VueMultiselect component globally	
+app.use(vuetify)
+app.mount('#app')
+
+
+</script>
+                  
+</body>
+</html>
