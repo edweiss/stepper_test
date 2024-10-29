@@ -21,29 +21,31 @@
 
 <div id="app">
 
+<div style=“height:1200px”> HEADER</div>
+
 <div style="display: flex; justify-content: center">	
   <v-stepper ref="stepper" :items="['Trade mark', 'TM Classes', 'Search', 'Owner', 'Review & pay']" :key="stepperKey" v-model="currentStep"  editable style="width:100%;max-width:1200px;">
   
- <template v-slot:item.3>
-<div style=“height:1200px”>
+ <template v-slot:item.1>
+<div style=“height:1200px”> STEP 1 </div>
 </template>
 
 <template v-slot:item.2>
-<div style=“height:1200px”>
+<div style=“height:1200px”> STEP 2 </div>
 </template>
 
-<template v-slot:item.1>
-<div style=“height:1200px”>
+<template v-slot:item.3>
+<div style=“height:1200px”> STEP 3 </div>
     </template>
 
 
   
-<template v-slot:item.2>
-<div style=“height:1200px”>
+<template v-slot:item.4>
+<div style=“height:1200px”> STEP 4 </div>
 </template>
 
 <template v-slot:item.5>
-<div style=“height:1200px”>
+<div style=“height:1200px”> STEP 5 </div>
 </template>
 
 
