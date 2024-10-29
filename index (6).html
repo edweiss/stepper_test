@@ -1,0 +1,4261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/vue@3"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@3.5.4/dist/vuetify.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/vuetify@3.5.4/dist/vuetify.min.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/vue-multiselect@3.0.0-beta.3/dist/vue-multiselect.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vue-multiselect/3.0.0-beta.3/vue-multiselect.min.css">
+<!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+<link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+<script src="https://unpkg.com/element-plus"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<!-- Firebase SDKs -->
+<!--   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script> -->
+<!--   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js"></script> -->
+<!--   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script> -->
+  <!-- Axios for Airtable API requests -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for a Trade Mark</title>
+    <style>
+        /* General Container Styling */
+        .gb-container {
+            background-color: #f8f9fa; /* Light background color */
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+	    height:100px;
+        }
+        .gb-inside-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Headline Styling */
+        .gb-headline {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+        }
+
+        /* Shapes */
+        .gb-shapes {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        .gb-shape svg {
+            width: 100%;
+            height: 30pc;
+            fill: #e9ecef;
+        }
+	.content-wrapper {
+	    display: flex;
+	    justify-content: center;        /* Centers the stepper horizontally */
+	    padding: 20px;                  /* Adds some padding around the content */
+	    box-sizing: border-box;         /* Ensures padding doesn’t affect total width */
+	    max-width:1200px;
+	}
+    </style>
+</head>
+<body>
+
+<div id="app">
+
+  <script src="vue-init-application.js"></script>
+
+<div class="gb-container">
+    <div class="gb-inside-container">
+        <div class="wp-block-columns is-layout-flex wp-container-54">
+            <div class="wp-block-column is-layout-flow">
+                <h1 class="gb-headline">Apply for a Trade Mark</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decorative Shapes -->
+    <div class="gb-shapes">
+        <div class="gb-shape gb-shape-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 194.3" preserveAspectRatio="none">
+                <path d="M1200 133.3l-50 8.9c-50 8.6-150 26.9-250 31.1-100 4.2-200-4.2-300-26.7S400 89.2 300 62.2C200 35.8 100 17.5 50 8.9L0 0v194.3h1200v-61z"></path>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<div style="display: flex; justify-content: center">	
+  <v-stepper ref="stepper" :items="['Trade mark', 'TM Classes', 'Search', 'Owner', 'Review & pay']" :key="stepperKey" v-model="currentStep" complete editable transition="none" style="width:100%;max-width:1200px;">
+  
+  <template v-slot:item.3>
+  <div class="content-container">
+    <div class="form-section">
+      <!-- Section Header -->
+      <div class="section-header" ref="focus">Trademark Availability Search</div>
+  
+      <!-- Explanation Box -->
+      <div class="info-banner">
+        <v-icon class="info-banner-icon">mdi-information</v-icon>
+        Confirm there are no confusingly similar looking, sounding or meaning trade marks in related or identical classes that may lead to rejection or legal issues. A comprehensive search is recommended.
+      </div>
+  
+  <div class="info-banner" style="background-color:#ebeffe;display:none">
+   
+        <v-card-text>
+          <v-row>
+            <!-- Trademark Details -->
+            <v-col cols="12" md="6">
+             <v-card class="section-card" flat style="background-color:#fafbff;padding:10px;border: 0px solid #607bfc;">
+                <v-card-title class="d-flex align-center">
+    <h3 class="section-title" >Trademark</h3>
+  
+    <v-btn 
+      color="primary" 
+      icon 
+      size="x-small"
+      class="edit-btn" 
+      @click="editInForm(1)"
+      style="min-width: auto;margin-left:20px;margin-top:-20px"
+    >
+      <v-icon x-small>mdi-pencil</v-icon>
+    </v-btn>
+  </v-card-title>
+  <v-card-text>
+                <v-row>
+                  <v-col cols="12">
+                    <div class="info-item">
+                      <strong></strong> <strong style="font-weight:800;font-size:25px;color:#607bfc">{{ currentTrademark.query }}<span v-if="currentTrademark.tmType == 'logo'"> Logo</span><span v-if="currentTrademark.tmType == 'both'"> + Logo (both)</span></strong>
+                    </div>
+                    
+              
+                  </v-col>
+                </v-row>
+  </v-card-text>
+              </v-card>
+            </v-col>
+  
+            <!-- Products / Classes Details -->
+            <v-col cols="12" md="6">
+             <v-card class="section-card" flat style="background-color:#fafbff;border: 0px solid #607bfc;padding:10px">
+                <v-card-title class="d-flex align-center">
+    <h3 class="section-title" >Classes</h3>
+  
+    <v-btn 
+      color="primary" 
+      icon 
+      size="x-small"
+      class="edit-btn" 
+      @click="editInForm(2)"
+      style="min-width: auto;margin-left:20px;margin-top:-20px"
+    >
+      <v-icon x-small>mdi-pencil</v-icon>
+    </v-btn>
+  </v-card-title>
+  <v-card-text>
+  <v-row>
+                  <v-col cols="12">
+                    <div class="info-item">
+                      <strong>Description:</strong> {{ currentTrademark.businessDescription }}
+                    </div>
+                    <div class="info-item">
+                      <strong>Classes:</strong> {{ currentTrademark.computedClassNumbersVariable }}
+                    </div>
+                    
+                  </v-col>
+  </v-row>
+  </v-card-text>
+              </v-card>
+            </v-col>
+  
+         
+  
+  
+     </v-row>  
+    </v-card-text>
+  
+  
+  </div>
+  
+  
+   <!-- Trademark Usage Information -->
+  
+    <div class="section-content" >
+        <h6 class="section-title">
+          <b style="margin-right:8px">1</b> Would you like a full availability check for your trademark before filing?
+        </h6>
+       
+  <el-radio-group color="#67c23a" v-model="comprehensiveSearch" style="color:#67c23a;text-align: center; align:center; justify:center;padding:5px 20px 5px 20px;">
+  <v-spacer></v-spacer>
+            <el-radio class="custom-radio-card" value="yes" label="yes" style="height:125px; width:250px;padding:20px;color:#434552; text-align: center; align:center; justify:center" border>
+              <span style="margin-left:30px;font-size:16px;font-family:Montserrat"><b style="margin-left:30px;font-size:35px;margin-top:5px">YES</b><br><span style="margin-left:45px;font-size:22px;font-family:Montserrat"><b>R 3500</b></span></span>
+            </el-radio>
+  <v-spacer></v-spacer>
+            <el-radio class="custom-radio-card" fill value="no" label="no" style="height:125px; width:250px;padding:20px;padding-top:30px;color:#434552; text-align: center; align:center; justify:center" size="large" border>
+              <span style="margin-left:30px;font-size:16px;font-family:Montserrat"><b style="margin-left:30px;font-size:35px;margin-top:5px">NO</b><br><span style="margin-left:40px;font-size:16px;font-family:Montserrat"></span>
+            </el-radio>
+    <v-spacer></v-spacer>       
+        </el-radio-group>
+      </div>
+  
+  
+  <div v-if="comprehensiveSearch!='no'" class="info-banner" style="background-color: #e8f9f2;color: #2e9a65">
+        <v-icon v-if="!comprehensiveSearch" class="info-banner-icon" color="#2e9a65">mdi-information</v-icon>
+  <v-icon v-if="comprehensiveSearch=='yes'" class="info-banner-icon" color="#2e9a65">mdi-checkbox-marked-circle</v-icon>
+        Get a full trademark search report with conflict analysis and filing strategy emailed by an expert attorney in 3-5 business days.</div>
+  
+  <div class="info-banner" v-if="comprehensiveSearch=='no'" style="background-color: #f9e8e8;color: #9a2e2e">
+        <v-icon v-if="comprehensiveSearch=='no'" class="info-banner-icon" color="#9a2e2e">mdi-information</v-icon>
+        Filing without a search carries a higher risk of refusals and legal complications. By proceeding you confirm that you accept the risk of a forced rebrand in future.  </div>
+  
+  
+  
+      <!-- Additional Names for Search -->
+      <div class="section-content" style="display:none;">
+        <h6 class="section-title">
+          <b>1</b> Add any other trademark names you want to search for:
+        </h6>
+        <v-text-field
+          v-model="additionalNames"
+          placeholder="Enter other names separated by commas"
+          dense
+          outlined
+          hide-details
+        ></v-text-field>
+      </div>
+  
+      <!-- Trademark Usage Information -->
+    <v-col cols="6" v-if="comprehensiveSearch" style="display:none">
+      <div class="section-content">
+        <h6 class="section-title">
+          <b>2</b> Have you started using this trademark?
+        </h6>
+        <el-radio-group v-model="hasStartedUsing" style="display: flex; gap: 20px;">
+          <el-radio label="yes">Yes</el-radio>
+          <el-radio label="no">No</el-radio>
+        </el-radio-group>
+  
+        <v-expand-transition>
+          <v-text-field
+            v-if="hasStartedUsing === 'yes'"
+            v-model="usageStartDate"
+            label="Date started using the trademark"
+            type="date"
+            dense
+            outlined
+          ></v-text-field>
+        </v-expand-transition>
+      </div>
+  </v-col>
+  
+      <!-- Trademark Search Input -->
+      <div class="section-content" style="display:none;">
+        <h6 class="section-title">
+          <b>3</b> Enter the trademark name for conflict search:
+        </h6>
+        <v-text-field
+          v-model="query"
+          placeholder="Enter the trademark name"
+          dense
+          outlined
+          hide-details
+          @keyup.enter="getSimilarMarks"
+        ></v-text-field>
+  
+      <!-- AI Assistance -->
+      <div class="section-content">
+        <v-btn
+          id="askAiButton"
+          @click="getAiSearchFeedback"
+          color="primary"
+          class="mt-2"
+        >
+          Ask AI for Feedback
+        </v-btn>
+  
+        <v-expand-transition>
+          <div v-if="aiSearchFeedback" class="response-box">
+            <strong>AI Feedback:</strong>
+            <div v-html="aiSearchFeedback"></div>
+          </div>
+        </v-expand-transition>
+      </div>
+  </div>
+      <!-- Trademark Search Results -->
+      <v-expand-transition>
+        <div class="section-content">
+          <h6 class="section-title" style="margin-top: 20px; border-bottom: 1px solid #ddd;">
+            Identical Class Conflicts:
+          </h6>
+          <v-data-table 
+  v-if="searchTrademarksExactClass.length!=0"
+            :items="searchTrademarksExactClass"
+            :headers="resultsHeaders"
+            dense
+            :items-per-page="3"
+            hide-default-footer
+  hide-default-header
+          >
+            <template v-slot:item="{ item }">
+              <tr>
+                <td><b style="color:red">{{ item.trademark }}</b></td>
+                <td>{{ item.class_no }}</td>
+                <!-- <td>{{ item.status }}</td> -->
+                <td style="max-width: 33%;width:33%">{{ item.proprietor }}</td>
+              </tr>
+            </template>
+          </v-data-table>
+  <div v-if="searchTrademarksExactClass.length==0" style="margin-bottom:20px"><span v-if="uniqueClassNos.length!=0">No obvious conflicts found</span><span v-if="uniqueClassNos.length==0">You have not selected any trademark classes.</span></div>
+  
+  <h6 class="section-title" style="margin-top: 20px; border-bottom: 1px solid #ddd;">
+            Related Class Conflicts:
+          </h6>
+          <v-data-table
+  v-if="searchTrademarksSimilarClass.length!=0"
+            :items="searchTrademarksSimilarClass"
+            :headers="resultsHeaders"
+            :items-per-page="3"
+            dense
+            hide-default-footer
+  hide-default-header
+  class="conflicts-table"
+          >
+            <template v-slot:item="{ item }">
+              <tr>
+                <td class="highlighted-cell"><b style="color:orange">{{ item.trademark }}</b></td>
+                <td>{{ item.class_no }}</td>
+                <!-- <td>{{ item.status }}</td> -->
+                <td style="max-width: 33%;;width:33%">{{ item.proprietor }}</td>
+              </tr>
+            </template>
+          </v-data-table>
+  <div v-if="searchTrademarksSimilarClass.length==0">No obvious conflicts found</div>
+  
+  <v-data-table style="margin-top:0px;display:none" :headers="oldResultsHeaders" :items="searchTrademarksExactClass" :loading="isLoading" loading-text="Loading trade marks..." no-data-text="No similar marks found." no-results-text="No similar marks found." :items-per-page="5" class="elevation-1" dense item-key="application_no"  mobile-breakpoint="0">
+                    <template v-slot:expanded-item="{ oldResultsHeaders, item }">
+                      <td :colspan="headers.length">
+                        <v-col>
+                          <br>
+                          <b>Class</b>: {{ classes[item.class_no-1].class_title }}
+                          <br>
+                          <br>
+                          <b>Status</b>: {{ item.status }}
+                          <br>
+                          <b>Number</b>: {{ item.application_no }}
+                          <br>
+                          <b>Filed</b>: {{ item.file_date }}
+                          <br>
+                          <b>Owner</b>: {{ returnSingleOwner(item.proprietor) }}
+                          <br>
+                          <br>
+                          <b>May cover</b>: {{ classes[item.class_no-1].class_heading }}
+                          <br>
+                          <br>
+                          <v-btn rounded @click="addSimilarMark(item)" style="background-color:#607bfc !important;color:white !important"> Get full record </v-btn>
+                          <v-btn rounded style="display:none;margin-left:20px;background-color:#1bd03f !important;color:white !important" @click="openRecordChat"> Chat to Us About This Mark </v-btn>
+                          <br>
+                          <br>
+                          <span style="color:#607bfc">** See official record for exact goods or services covered and design of the mark (if a Logo).</span>
+                          <br>
+                          <br>
+                        </v-col>
+                      </td>
+                    </template>
+  
+                    <template v-slot:item.year="{ item }">
+                      {{ item.year }}
+                    </template>
+                    <template v-slot:item.trademark="{ item }">
+                      <span style="color:red;font-weight:800;font-size:20px">{{ item.trademark }}</span>
+                    </template>
+                    <template v-slot:item.proprietor="{ item }">
+                      <span >{{ returnSingleOwner(item.proprietor) }}</span>
+                    </template>
+  <template v-slot:item.class_no="{ item }">
+                      <span style="color:red;">{{ item.class_no }}</span>
+                    </template>
+  
+                  </v-data-table>
+        </div>
+      </v-expand-transition>
+    </div>
+  </div>
+  </template>
+  
+  
+   <!--  <template v-slot:item.>
+    <div class="form-section">
+      <div class="section-header">Quick trade mark registrability pre-check</div>
+     
+      <div class="explanation-box">
+        Enter your brand name and describe your business, goods, or services. This will help check the registrability of your trade mark.
+      </div>
+  
+      <div class="section-content">
+        <h6 class="section-title">
+          <b>1</b> Enter the word(s) appearing in your word mark
+        </h6>
+        <v-text-field
+          v-model="query"
+          placeholder="Enter word(s) for your word mark"
+          dense
+          outlined
+          hide-details
+          class="mt-2"
+        ></v-text-field>
+      </div>
+  
+      <div class="section-content">
+        <h6 class="section-title">
+          <b>2</b> Describe your business, goods or services and add your website URL (optional)
+        </h6>
+        <v-row>
+          <v-col>
+            <v-text-field
+              v-model="businessDescription"
+              placeholder="Enter business description or website URL"
+              dense
+              outlined
+              hide-details
+            ></v-text-field>
+          </v-col>
+  
+          <v-col cols="auto">
+            <v-btn
+              id="askAiButton"
+              @click="getAiTmCheck"
+              color="orange"
+              class="mt-2"
+            >
+              Ask AI
+            </v-btn>
+          </v-col>
+        </v-row>
+      </div>
+  
+      <v-expand-transition>
+        <div v-if="askAiSpinner" class="spinner-container">
+          <v-progress-circular size="30" color="primary" indeterminate></v-progress-circular>
+          <div class="ai-thinking">
+            BrandLaw AI is generating class suggestions...</div>
+        </div>
+      </v-expand-transition>
+  
+      <v-expand-transition>
+        <div v-if="chatGPTTMCheck" class="response-box" v-html="chatGPTTMCheck"></div>
+      </v-expand-transition>
+    </div>
+  </template> -->
+  
+  <template v-slot:item.2>
+  <div class="content-container">
+    <div class="form-section">
+      <!-- Section Header -->
+      <div class="section-header" ref="focus">Find your trademark classes</div>
+  
+  <!-- Explanation Box -->
+      <div class="info-banner">
+    <v-icon class="info-banner-icon">mdi-information</v-icon>
+    Trade marks fall into 45 classes of goods or services.
+  </div>
+  
+      <!-- Business Description Section (always present) -->
+      <div class="section-content">
+        <h6 class="section-title">
+          <b style="margin-right:8px">1</b> Describe your business or products
+        </h6>
+        <v-row>
+          <v-col>
+            <v-text-field
+              v-model="businessDescription"
+              placeholder="Enter business description"
+              dense
+              outlined
+              hide-details
+            ></v-text-field>
+          </v-col>
+          
+        </v-row>
+  
+  <!-- Class Incrementor & Total Cost Indicator -->
+      <div class="section-content">
+        <h6 class="section-title">
+          <b style="margin-right:8px">2</b> <span v-if="tmType=='both'">How many trademark classes are you filing your trademarks in?</span><span v-if="tmType!='both'">How many trademark classes are you filing your trademark in?</span>     </h6>
+        <v-row style="margin-bottom:-40px">
+          <v-col cols="2">
+            <!-- Incrementor to Select Number of Classes -->
+            <v-text-field
+              v-model.number="numberOfClasses"
+              type="number"
+              min="1"
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+  
+          <v-col cols="auto">
+            <!-- Display Total Cost -->
+            <div class="price-banner" style="padding:20px;padding-top:5px;padding-bottom:5px;">
+  <v-icon class="price-banner-icon">mdi-checkbox-marked-circle</v-icon>
+              Total Cost: <strong>R{{ currentCost }}</strong><span v-if="uniqueClassNos.length!=0"> Selected classes: <b>
+  
+  {{ computedClassNumbers }}</b>.</span>
+            </div>
+          </v-col>
+  <v-col cols="2">
+    <v-btn @click="clearSelections" color="b0bec5" style="height: 54px; border-color: #cfd8dc; color: #607bfc;" flat plain>
+      Clear
+    </v-btn>
+  </v-col>
+  
+        </v-row>
+  
+  <v-row>
+  <v-col cols="12">
+  <div class="ai-suggestion-wrapper" style="padding:30px;padding-top:15px;padding-bottom:20px;margin-bottom:-20px">
+              <h6 style="font-size:15px;font-weight:400">
+  Select classes.
+              </h6>
+              <vue-multiselect
+                v-model="selectedProducts"
+                label="tracking_id"
+                track-by="tracking_id"
+                placeholder="Enter goods or services to find relevant classes."
+                :options="checkProducts"
+                :multiple="true"
+                @search-change="asyncFind"
+                :searchable="true"
+                :internal-search="true"
+                :loading="isLoading"
+                open-direction="bottom"
+                :clear-on-select="false"
+                :close-on-select="false"
+                :options-limit="400"
+                :limit="100"
+              ></vue-multiselect>
+            </div>
+  </v-col>
+  </v-row>
+  
+  
+      </div>
+  
+  
+      <!-- Radio Group to Choose Selection Mode -->
+      <div class="section-content">
+        <h6 class="section-title">
+          <b style="margin-right:8px">3</b> Need help choosing classes?      
+  </h6>
+  
+        <el-radio-group color="#67c23a" v-model="classSelectionMode" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+  <el-radio class="custom-radio-card" label="ai" value="ai" style="flex: 1; height:100px; width:250px;padding:20px;color:#434552; text-align: center; align:center; justify:center;word-wrap: break-word;
+        overflow-wrap: break-word; white-space: normal;width: 100%; /* Make the card span the full width */
+        margin: 0; /* Remove any margin to align to edges */" border>
+              <v-icon class="info-banner-icon mdi-spin" style="margin-right:-20px;padding-top:20px;font-size:30px">mdi-star-outline</v-icon><span style="margin-left:30px;font-size:16px;font-family:Montserrat">Let AI recommend classes</span>
+            </el-radio>
+            <el-radio class="custom-radio-card" label="choose" value="choose" style="flex: 1; height:100px; width:250px;padding:20px;color:#434552; text-align: center; align:center; justify:center;word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;width: 100%; /* Make the card span the full width */
+        margin: 0; /* Remove any margin to align to edges */" border>
+              <span style="margin-left:30px;font-size:16px;font-family:Montserrat">Select your own trademark classes</span>
+            </el-radio>
+            <el-radio class="custom-radio-card" fill label="attorney" value="attorney" style="flex: 1; height:100px; width:250px;padding:20px;padding-top:30px;color:#434552; text-align: center; align:center; justify:center;word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;" size="large" border>
+              <span style="margin-left:30px;margin-top:30px;font-size:16px;font-family:Montserrat">Let an attorney choose the best trademark classes</span>
+            </el-radio>
+  </el-radio-group>
+      </div>
+  
+  
+  <v-expand-transition>
+        <div v-if="classSelectionMode" class="choose-classes-options">
+  
+          <!-- Explanation Box -->
+  
+  <!-- Manual Section Banner -->
+  <div v-if="classSelectionMode === 'choose'" class="info-banner">
+    <v-icon class="info-banner-icon">mdi-information</v-icon>
+    You can use one or more of the following options to find the relevant classes for your trademark.
+  </div>
+  
+          <div v-if="classSelectionMode === 'attorney'" class="info-banner">
+  <v-icon class="info-banner-icon">mdi-information</v-icon>
+            An attorney will choose the most appropriate class(es) for your trademark based on your description.
+          </div>
+          <div v-if="classSelectionMode === 'ai'" class="info-banner">
+  <v-icon class="info-banner-icon">mdi-information</v-icon>
+            Below are classes suggested by the AI. Select any that are of interest.
+        <v-btn 
+          v-if="!askAiSpinner" 
+          @click="getSimilarMarks" 
+          color="primary"
+          class="refresh-button"
+  style="margin-left:15px"
+        >
+          Get More Suggestions
+        </v-btn>
+          </div>
+        </div>
+  </v-expand-transition>
+  
+  <!-- Spinner Section -->
+  <v-expand-transition>
+    <div v-if="askAiSpinner" class="spinner-container">
+      <v-progress-circular size="40" color="primary" indeterminate></v-progress-circular>
+      <div class="ai-thinking">BrandLaw AI is generating class suggestions...</div>
+    </div>
+  </v-expand-transition>
+  
+  
+  <!-- AI Suggestion Section Wrapper -->
+  <v-expand-transition>
+    <div v-if="classSelectionMode === 'ai' && chatGPTClassification" class="ai-suggestion-wrapper">
+  
+     
+  
+      <!-- Header for AI Suggestions -->
+      <div class="ai-suggestions-header">
+        <h4>
+    <v-icon style="margin-right: 8px; color: #607bfc;">mdi-star-outline</v-icon>
+    AI Suggested Classes
+  </h4>
+      </div>
+      
+      <!-- AI Response Box -->
+      <v-expand-transition>
+       <!--   <div v-if="chatGPTClassification" class="response-box"> -->
+          <!-- Responsive Grid for AI Suggested Classes -->
+        <div class="class-selection-container">
+            <!-- v-for loop to iterate over chatGPTClassification items and render cards -->
+            <div 
+              v-for="(item, index) in chatGPTClassification"
+              :key="index"
+              class="class-card"
+              :class="{ 'selected': isClassSelected(item) }"
+              @click="toggleSelection(item)"
+            >
+              <!-- Class content -->
+              <div class="class-heading" v-html="getFormattedDescription(item.description, item.class_no)"></div>
+              <div v-if="item.details" class="class-content" v-html="getFormattedDetails(item.details)"></div>
+            </div>
+       </div> 
+       <!--     </div> -->
+      </v-expand-transition>
+    </div>
+  </v-expand-transition>
+  
+  
+  </div>
+  </v-expand-transition>
+  
+      <!-- Option: Choose Your Own Classes -->
+      <v-expand-transition>
+        <div v-if="classSelectionMode === 'choose'" class="choose-classes-options" style="margin-top:-30px">
+     
+          <!-- Options Container -->
+          <div class="options-container" >
+            <!-- Option B: Enter Class Number or Search -->
+            <div class="ai-suggestion-wrapper" style="padding:40px;padding-top:30px;padding-bottom:40px;display:none">
+              <h6 class="section-title">
+                <b style="margin-right:8px">A</b> Search for your products or services - or enter class number.
+              </h6>
+              <vue-multiselect
+                v-model="selectedProducts"
+                label="tracking_id"
+                track-by="tracking_id"
+                placeholder="Enter goods or services to find relevant classes."
+                :options="checkProducts"
+                :multiple="true"
+                @search-change="asyncFind"
+                :searchable="true"
+                :internal-search="true"
+                :loading="isLoading"
+                open-direction="bottom"
+                :clear-on-select="false"
+                :close-on-select="false"
+                :options-limit="400"
+                :limit="100"
+              ></vue-multiselect>
+            </div>
+  
+            <!-- Option C: Select Classes -->
+            <div class="choose-wrapper">
+             
+  
+  <!-- Header for AI Suggestions -->
+      <div class="ai-suggestions-header">
+        <h4>
+    <v-icon style="margin-right: 8px; color: #607bfc;">mdi-magnify</v-icon>
+    All Classes
+  </h4>
+      </div>
+  
+              <div class="class-selection-container">
+                <div
+                  v-for="item in classes"
+                  :key="item"
+                  class="class-card"
+                  :class="{ 'selected': isClassSelected(item) }"
+                  @click="toggleSelection(item)"
+                >
+                  <div class="class-heading">{{ item.card_heading }}</div>
+                  <div class="class-content">{{ item.card_content }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </v-expand-transition>
+    </div>
+  </div>
+  </template>
+  
+  
+  <template v-slot:item.1>
+  <div class="content-container">
+  <div class="form-section">
+         <div class="section-header" ref="focus">Add your trademark below.</div>
+  
+  <!-- Explanation Box -->
+   <div class="info-banner">
+    <v-icon class="info-banner-icon">mdi-information</v-icon>
+    Choose whether you want to register a wordmark, a logo, or both. A wordmark protects the name or slogan in text form in all designs, while a logo protects the particular design elements (in combination with any words).
+  </div>
+  
+  <!-- Trademark Type Selection -->
+    <div class="section-content">
+          <h6 class="section-title">
+        <b>1</b> What trademark do you want to protect?
+      </h6>
+  
+          <el-radio-group color="#67c23a" v-model="tmType" style="color:#67c23a;text-align: center; align:center; justify:center;padding:5px 20px 5px 20px;">
+            <el-radio class="custom-radio-card" value="wordmark" style="height:150px; width:230px;padding:20px;color:#434552; text-align: center; align:center; justify:center" border>
+              <span style="margin-left:30px;font-size:16px;font-family:Montserrat">Wordmark<br><b style="margin-left:35px;font-size:35px;margin-top:5px">NIKE</b><br><span style="margin-left:30px;font-size:16px;font-family:Montserrat">R{{singleMarkCurrentCost}}</span></span>
+            </el-radio>
+            <el-radio class="custom-radio-card" fill value="logo" style="height:150px; width:230px;padding:20px;padding-top:30px;color:#434552; text-align: center; align:center; justify:center" size="large" border>
+              <span style="margin-left:30px;margin-top:30px;font-size:16px;font-family:Montserrat">Image or Logo<br><b style="margin-left:35px;font-size:35px;margin-top:5px">
+                <img src="https://www.brandlaw.co.za/wp-content/uploads/2024/03/Nike-Logo.png" alt="Nike Logo" style="height:45px;margin-top:10px;margin-bottom:-10px">
+              </b><br><span style="margin-left:30px;font-size:16px;font-family:Montserrat">R{{singleMarkCurrentCost}}</span></span>
+            </el-radio>
+            <el-radio class="custom-radio-card" value="both" style="height:150px; width:230px;padding:20px;color:#434552; text-align: center; align:center; justify:center" border>
+              <span style="margin-left:30px;margin-bottom:10px;margin-top:-20px;font-size:16px;font-family:Montserrat">Both<br><br><span style="margin-left:30px;font-size:16px;font-family:Montserrat">R{{bothMarkCurrentCost}}</span></span></span>
+            </el-radio>
+          </el-radio-group>
+  
+         <!-- Conditional Sections -->
+    <div v-if="tmType === 'wordmark'" class="section-content">
+      <h6 class="section-title"><b>2</b> Enter the word(s) appearing in your word mark.</h6>
+      <v-text-field v-model="query" placeholder="Enter word mark..." dense hide-details></v-text-field>
+    </div>
+  
+    <div v-if="tmType !== 'wordmark'" class="section-content">
+      <h6 class="section-title"><b>2</b> Enter any words appearing in your Logo.</h6>
+  <v-text-field style="padding:5px !important" v-model="query" placeholder="" dense style="background-color: #ebeffe !important" hide-details ref="inputRef"></v-text-field>
+      <v-file-input style="margin-top:10px !important" v-model="selectedFile" label="Upload your logo (TIFF, PNG, JPEG, max 4MB)" dense prepend-icon="mdi-upload"></v-file-input>
+      <v-btn @click="uploadFile" :disabled="!selectedFile">Upload File</v-btn>
+    </div>
+  </div>
+  </div>
+      </template>
+  
+  
+    
+  <template v-slot:item.4>
+  <div class="content-container">
+    <div class="form-section">
+      <!-- Section Header -->
+      <div class="section-header" ref="focus">Add the Owner Details</div>
+  
+      <!-- Explanation Box -->
+  <div class="info-banner">
+    <v-icon class="info-banner-icon">mdi-information</v-icon>
+    Provide the owner’s details. This can be an individual, company or other entity. For companies, trademark ownership is tied to company shareholding. For individuals, it is tied to the person. A formal process is required to transfer trademark ownership to different persons or entities in future."
+  </div>
+  
+      <!-- Who is the Owner? -->
+      <div class="section-content">
+        <h6 class="section-title">
+          <b>1</b> What type of owner is registering the trademark?
+        </h6>
+        <el-radio-group v-model="owner.type" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+          <el-radio class="custom-radio-card" label="company" value="company" style="flex: 1; padding: 20px; text-align: center;" border>
+            <span style="font-size:16px;font-family:Montserrat"><b>Company</b></span>
+          </el-radio>
+          <el-radio class="custom-radio-card" label="person" value="person" style="flex: 1; padding: 20px; text-align: center;" border>
+            <span style="font-size:16px;font-family:Montserrat"><b>Person</b></span>
+          </el-radio>
+          <el-radio class="custom-radio-card" label="other" value="other" style="flex: 1; padding: 20px; text-align: center;" border>
+            <span style="font-size:16px;font-family:Montserrat"><b>Other</b></span>
+          </el-radio>
+        </el-radio-group>
+      </div>
+  
+      <!-- Input for Owner Name Based on Type -->
+      <v-expand-transition>
+        <div v-if="owner.type" class="section-content">
+          <h6 v-if="owner.type === 'person'" class="section-title">
+            <b>2</b> Provide the person's full name.
+          </h6>
+          <h6 v-if="owner.type === 'company'" class="section-title">
+            <b>2</b> Provide full company name and entity type (e.g., BRANDLAW (PTY) LTD).
+          </h6>
+          <h6 v-if="owner.type === 'other'" class="section-title">
+            <b>2</b> Provide the name and type of the owner entity.
+          </h6>
+          <v-text-field
+            v-model="owner.name"
+            placeholder="Enter owner name"
+            dense
+            outlined
+            hide-details
+          ></v-text-field>
+        </div>
+      </v-expand-transition>
+  
+      <!-- Input for Physical Address -->
+      <div class="section-content">
+        <h6 class="section-title">
+          <b>3</b> Provide the owner's full physical address (not a Post Box).
+        </h6>
+        <v-text-field
+          v-model="owner.address"
+          placeholder="Enter physical address"
+          dense
+          outlined
+          hide-details
+        ></v-text-field>
+      </div>
+    </div>
+  </div>
+  </template>
+  
+  <template v-slot:item.5>
+  <div class="content-container">
+  <div class="form-section">
+  
+  <v-expand-transition>
+  <div v-if="!currentTrademark.detailsConfirmed">
+   <div class="section-header" ref="focus">Review Trademark Details</div>
+  <div class="info-banner" style="background-color:#ebeffe">
+   
+        <v-card-text>
+          <v-row>
+            <!-- Trademark Details -->
+            <v-col cols="12" md="6">
+             <v-card class="section-card" flat style="background-color:#fafbff;padding:10px;border: 0px solid #607bfc;">
+                <v-card-title class="d-flex align-center">
+    <h3 class="section-title" >Trademark</h3>
+  
+    <v-btn 
+      color="primary" 
+      icon 
+      size="x-small"
+      class="edit-btn" 
+      @click="editInForm(1)"
+      style="min-width: auto;margin-left:20px;margin-top:-20px"
+    >
+      <v-icon x-small>mdi-pencil</v-icon>
+    </v-btn>
+  </v-card-title>
+  <v-card-text>
+                <v-row>
+                  <v-col cols="12">
+                    <div class="info-item">
+                      <strong></strong> <strong style="font-weight:800;font-size:25px;color:#607bfc">{{ currentTrademark.query }}<span v-if="currentTrademark.tmType == 'logo'"> Logo</span><span v-if="currentTrademark.tmType == 'both'"> + Logo (both)</span></strong>
+                    </div>
+                    <div class="info-item" style="margin-top:15px;text-transform: capitalize">
+                      <strong>Type:</strong> {{ currentTrademark.tmType }}
+                    </div>
+                    <div class="info-item" v-if="currentTrademark.tmType == 'logo'">
+                      <strong>Logo:</strong>
+                      <img v-if="currentTrademark.downloadUrl" :src="currentTrademark.downloadUrl" alt="Logo" width="100" style="border-radius: 10px; border: 1px solid #607bfc;" />
+                    </div>
+                  </v-col>
+                </v-row>
+  </v-card-text>
+              </v-card>
+            </v-col>
+  
+     <!-- Owner Details -->
+            <v-col cols="12" md="6">
+              <v-card class="section-card" flat style="background-color:#fafbff;border: 0px solid #607bfc;padding:10px">
+                <v-card-title class="d-flex align-center">
+    <h3 class="section-title" >Owner</h3>
+  
+    <v-btn 
+      color="primary" 
+      icon 
+      size="x-small"
+      class="edit-btn" 
+      @click="editInForm(3)"
+      style="min-width: auto;margin-left:20px;margin-top:-20px"
+    >
+      <v-icon x-small>mdi-pencil</v-icon>
+    </v-btn>
+  </v-card-title>
+  <v-card-text>
+  <v-row>
+                  <v-col cols="12">
+                    <div class="info-item" style="text-transform: capitalize">
+                      <strong>Name:</strong> {{ currentTrademark.owner.name }}
+                    </div>
+                    <div class="info-item" style="text-transform: capitalize">
+                      <strong>Type:</strong> {{ currentTrademark.owner.type }}
+                    </div>
+                    <div class="info-item" style="text-transform: capitalize">
+                      <strong>Address:</strong> {{ currentTrademark.owner.address }}
+                    </div>
+                  </v-col>
+  <v-row>
+  </v-card-text>
+              </v-card>
+            </v-col>
+  
+            <!-- Products / Classes Details -->
+            <v-col cols="12" md="6">
+             <v-card class="section-card" flat style="background-color:#fafbff;border: 0px solid #607bfc;padding:10px">
+                <v-card-title class="d-flex align-center">
+    <h3 class="section-title" >Classes</h3>
+  
+    <v-btn 
+      color="primary" 
+      icon 
+      size="x-small"
+      class="edit-btn" 
+      @click="editInForm(2)"
+      style="min-width: auto;margin-left:20px;margin-top:-20px"
+    >
+      <v-icon x-small>mdi-pencil</v-icon>
+    </v-btn>
+  </v-card-title>
+  <v-card-text>
+  <v-row>
+                  <v-col cols="12">
+                    <div class="info-item">
+                      <strong>Description:</strong> {{ currentTrademark.businessDescription }}
+                    </div>
+  <div class="info-item">
+                      <strong>Number of Classes:</strong> {{ currentTrademark.numberOfClasses }}
+                    </div>
+                    <div class="info-item">
+                      <strong>Classes:</strong> {{ currentTrademark.computedClassNumbersVariable }}
+                    </div>
+                    
+                  </v-col>
+  </v-row>
+  </v-card-text>
+              </v-card>
+            </v-col>
+  
+   <!-- Search Details -->
+            <v-col cols="12" md="6">
+             <v-card class="section-card" flat style="background-color:#fafbff;border: 0px solid #607bfc;padding:10px">
+                <v-card-title class="d-flex align-center">
+    <h3 class="section-title" >Search</h3>
+  
+    <v-btn 
+      color="primary" 
+      icon 
+      size="x-small"
+      class="edit-btn" 
+      @click="editInForm(4)"
+      style="min-width: auto;margin-left:20px;margin-top:-20px"
+    >
+      <v-icon x-small>mdi-pencil</v-icon>
+    </v-btn>
+  </v-card-title>
+  <v-card-text>
+  <v-row>
+                  <v-col cols="12">
+                    <div class="info-item">
+                      <strong>Search:</strong> {{ currentTrademark.comprehensiveSearch }}
+                    </div>
+                    
+                  </v-col>
+  </v-row>
+  </v-card-text>
+              </v-card>
+            </v-col>
+         
+  
+  
+   <v-col cols="12" md="12">
+              <v-card class="section-card" flat style="background-color:#e8f9f2;border: 0px solid #3ac17e ;padding:10px">
+                <v-card-title class="d-flex align-center">
+    <h3 class="section-title" >Costs</h3>
+  
+    
+  </v-card-title>
+  <v-card-text>
+  <v-row>
+                  <v-col cols="12">                 
+            <!-- Display Total Cost -->
+            <div>
+              <strong>R{{ currentCost }}</strong> for {{ numberOfClasses }} <span v-if="numberOfClasses==1">class</span><span v-if="numberOfClasses!=1">classes</span><span v-if="uniqueClassNos.length!=0"> Selected classes: <b>{{ computedClassNumbers }}</b>.</span>
+            </div>
+                  </v-col>
+  <v-row>
+  </v-card-text>
+              </v-card>
+            </v-col>
+     </v-row>  
+    </v-card-text>
+  
+  
+  </div>
+        
+   <v-row> 
+  <v-col> 
+  <div style="text-align: center;">
+        <!-- Confirm and Pay Button -->
+        <v-btn
+          @click="confirmTrademark"
+          color="success"
+          style="font-family: Montserrat; font-weight: 600; margin-right: 10px; margin-bottom: 20px;"
+        >
+         Confirm
+        </v-btn>
+  <v-btn
+          @click="clearTrademark"
+          style="font-family: Montserrat; font-weight: 600; margin-right: 10px; margin-bottom: 20px;color: #607bfc;"
+  flat
+  plain
+        >
+          Clear
+        </v-btn>
+      </div>
+    </v-col>  
+   </v-row>  
+  </div>
+  </v-expand-transition>
+  
+  <v-expand-transition>
+  <div v-if="trademarks.length">
+  <div class="section-header" ref="focus">Your Trademarks</div>
+     
+  <v-data-table
+    v-model:expanded="expanded"
+    :item-value="'tmIndex'"
+    :headers="tableHeaders"
+    :items="trademarks"
+    class="elevation-2 trademark-table"
+    hide-default-footer
+    show-expand
+  >
+    <!-- Table Headers -->
+    <template v-slot:header="{ props }">
+      <thead>
+        <tr style="background-color: #d4dbfe; color: #434552; font-weight: bold;">
+          <th v-for="header in props.headers" :key="header.value">{{ header.text }}</th>
+        </tr>
+      </thead>
+    </template>
+  
+    <!-- Table Rows -->
+    <template v-slot:item="{ item, isExpanded }">
+      <tr @click="toggleExpand(item)" style="border-bottom: 1px solid #e0e0e0;">
+        
+        <!-- Trademark or Logo Column -->
+        <td style="color:#607bfc">
+          <!-- Show logo if `tmType` is 'logo' and there is a download URL -->
+          <img v-if="item.tmType === 'logo' && item.downloadUrl" :src="item.downloadUrl" alt="Logo" width="50" style="border-radius: 5px;">
+          <!-- Otherwise, show the trademark name -->
+          <strong v-if="item.tmType=='wordmark'">{{ item.query }}</strong>
+          <strong v-if="item.tmType=='logo'">{{ item.query }} Logo</strong>
+          <strong v-if="item.tmType=='both'">{{ item.query }} + Logo (Both)</strong>
+        </td>
+  
+  
+        <!-- Number of Classes -->
+        <td>{{ item.numberOfClasses }}</td>
+  
+        <!-- Proposed Classes -->
+        <td>{{ item.computedClassNumbers }}</td>
+  
+        <!-- Owner Name -->
+        <!-- <td>{{ item.owner.name }}</td>  -->
+  
+  <!-- Search -->
+        <td>{{ item.comprehensiveSearch }}</td>
+  
+        <!-- Costs -->
+        <td>R{{ item.priceQuote }}</td>
+  
+        <!-- Actions Column (Remove Button) -->
+        <td>
+          <v-btn icon @click.stop="removeTrademark(item)" size="small">
+            <v-icon color="red">mdi-delete</v-icon>
+          </v-btn>
+        </td>
+    <td>
+      <v-btn
+        variant="text"
+        density="comfortable"
+        @click="toggleExpand(internalItem)"
+        class="v-data-table__expand-icon"
+        :class="{ 'v-data-table__expand-icon--active': isExpanded }"
+      >
+        <v-icon>mdi-chevron-down</v-icon>
+      </v-btn>
+    </td>
+  
+      </tr>
+    </template>
+  
+  
+   <template v-slot:expanded-row="{ item, columns }">
+  <tr>
+      <td :colspan="columns.length" style="padding: 0;">
+  
+  <v-card class="section-card" flat style="background-color:#fafbff;margin:10px;border-radius:20px;padding:20px;border: 0px solid #607bfc;">
+              <!--  <v-card-title class="d-flex align-center">
+    <h3 class="section-title" >Trademark Details</h3>
+  </v-card-title> -->
+  <v-card-text>
+                <v-row>
+                  <v-col cols="12">
+                    <div class="info-item">
+                     
+  
+        <!-- Expanded Content Styled with Clean Layout -->
+        <v-row class="py-4 px-3">
+          
+          <!-- Trademark Details -->
+          <v-col cols="12" md="6">
+            <div class="info-section">
+              <div class="info-title" style="font-size: 1.1em; font-weight: 600; border-bottom: 1px solid #e0e0e0; margin-bottom: 10px;">Trademark</div>
+              <div class="info-item" style="font-weight: 600; font-size: 1.2em; color: #607bfc;">
+                {{ item.query }}<span v-if="item.tmType === 'logo'"> Logo</span>
+              </div>
+              <div class="info-item mt-3" style="text-transform: capitalize">
+                <strong>Type:</strong> {{ item.tmType }}
+              </div>
+              <div class="info-item mt-3" v-if="item.tmType === 'logo'">
+                <strong>Logo:</strong>
+                <img v-if="item.downloadUrl" :src="item.downloadUrl" alt="Logo" width="80" style="border-radius: 8px; border: 1px solid #607bfc;">
+              </div>
+            </div>
+          </v-col>
+  
+          <!-- Owner Details -->
+          <v-col cols="12" md="6">
+            <div class="info-section">
+              <div class="info-title" style="font-size: 1.1em; font-weight: 600; border-bottom: 1px solid #e0e0e0; margin-bottom: 10px;">Owner</div>
+              <div class="info-item mt-3" style="text-transform: capitalize">
+                <strong>Name:</strong> {{ item.owner.name }}
+              </div>
+              <div class="info-item mt-3" style="text-transform: capitalize">
+                <strong>Type:</strong> {{ item.owner.type }}
+              </div>
+              <div class="info-item mt-3" style="text-transform: capitalize">
+                <strong>Address:</strong> {{ item.owner.address }}
+              </div>
+            </div>
+          </v-col>
+  
+          <!-- Classes / Products Details -->
+          <v-col cols="12" md="6">
+            <div class="info-section">
+              <div class="info-title" style="font-size: 1.1em; font-weight: 600; border-bottom: 1px solid #e0e0e0; margin-bottom: 10px;">Goods / Services</div>
+              <div class="info-item mt-3">
+                <strong>Description:</strong> {{ item.businessDescription }}
+              </div>
+              <div class="info-item mt-3">
+                <strong v-if="item.computedClassNumbersVariable">Selected Classes:</strong> {{ item.computedClassNumbersVariable }}
+              </div>
+            </div>
+          </v-col>
+  
+          <!-- Costs Section -->
+          <v-col cols="12" md="6">
+            <div class="info-section">
+              <div class="info-title" style="font-size: 1.1em; font-weight: 600; border-bottom: 1px solid #e0e0e0; margin-bottom: 10px">Classes</div>
+  <div class="info-item mt-3">
+                <strong>Total Classes:</strong> {{ item.numberOfClasses }}
+              </div>
+  <div class="info-item mt-3">
+                <strong>Search:</strong> {{ item.comprehensiveSearch }}
+              </div>
+   <div class="info-item mt-3">
+                <strong>Cost:</strong> {{ item.priceQuote }}
+              </div>           
+            </div>
+          </v-col>
+  
+        </v-row>
+      </th>
+    </tr>
+  
+  
+                    </div>
+                  </v-col>
+                </v-row>
+  </v-card-text>
+              </v-card>
+  
+  </template>
+  
+  
+  
+  
+  
+  
+        <template #bottom></template>
+  
+      </v-data-table>          
+  </div>
+  </div>
+  </v-expand-transition> 
+  
+  <div v-if="trademarks.length!=0">
+  <v-col cols="12">
+              <v-card class="section-card" flat style="background-color:#e8f9f2;border: 1px solid #3ac17e ;padding:10px">
+                
+  <v-card-text>
+                  <v-col cols="12">               
+            <!-- Display Total Cost -->
+            <div v-if="trademarks.length!=0" style="text-align: center; align:center;padding:0px;font-size:25px">
+  
+  Grand Total: <strong>R{{ totalCost }}</strong><v-icon class="price-banner-icon">mdi-checkbox-marked-circle</v-icon>
+            </div>
+                  </v-col>
+  </v-card-text>
+              </v-card>
+            </v-col>
+     </v-row>  
+  </div>
+  
+  <v-expand-transition> 
+  <!-- Action Buttons (Bottom) -->
+      <div style="text-align: center;" v-if="currentTrademark.detailsConfirmed">
+        <!-- Confirm and Pay Button -->
+        <v-btn
+          v-if="trademarks.length!=0"
+          @click="confirmAndPay"
+          color="success"
+          style="font-family: Montserrat; font-weight: 600; margin-right: 10px; margin-bottom: 20px;"
+        >
+          Pay
+        </v-btn>
+        <!-- Add Another Trademark Button -->
+        <v-btn
+          @click="addAnotherTrademark"
+          color="info"
+          style="font-family: Montserrat; font-weight: 600; margin-bottom: 20px;"
+        >
+          Add Another Trademark
+        </v-btn>
+      </div>
+  </v-expand-transition> 
+  
+    </div>
+  </div>
+  </div>
+  </template>
+  
+  <v-stepper-actions
+  
+            @click.prevent:next="goToNextStep(next)"
+            @click.prevent:prev="goToPreviousStep(prev)"
+          ></v-stepper-actions>
+  
+  </v-stepper>
+</div>
+  </div>
+  
+  <style scoped>
+  
+   .card-select:hover{
+      
+  border-width:2px !important;
+  border-color: #9faffd !important;
+    }
+  .selected {
+    border-color: #607bfc !important;
+    background-color: #ebeffe !important;
+    border-width:2px !important;
+  }
+  
+  .container {
+      text-align: left;
+      margin-top: 50px;
+  }
+  
+  #askAiButton {
+      padding: 10px 20px;
+      font-size: 20px;
+      position: relative;
+  }
+  
+  .button-spinner {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+  
+  .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-left-color: #000;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+  }
+  
+  @keyframes spin {
+      0% {
+          transform: rotate(0deg);
+      }
+      100% {
+          transform: rotate(360deg);
+      }
+  }
+  
+  .response-box {
+    background-color: #eaf3fe; /* Soft blue background for contrast */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-left: 4px solid #607bfc; /* Accent color */
+  }
+  
+  .result-container {
+      margin-top: 20px;
+      text-align: left;
+  }
+  
+  .result-item {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 5px;
+      margin-bottom: 5px;
+  }
+  
+  .result-item h5 {
+      margin: 0 0 10px 0;
+  }
+  
+  .result-item p {
+      margin: 15px 0;
+  }
+  
+  /* Define custom styles for the headings */
+  .response-box h2 {
+    font-size: 28px; /* Adjust to desired size */
+  }
+  
+  .response-box h3 {
+    font-size: 24px; /* Adjust to desired size */
+  }
+  
+  .response-box h4 {
+    font-size: 20px; /* Adjust to desired size */
+  }
+  
+  .response-box h5 {
+    font-size: 18px; /* Adjust to desired size */
+  }
+  
+  .green-button {
+      background-color: #28a745 !important; /* A good shade of green */
+      color: white; /* Text color */
+  }
+  
+  .orange-button {
+      background-color: #ff9800 !important; /* A good shade of green */
+      color: white; /* Text color */
+  }
+  
+  .section-content {
+    margin: 20px 0;
+    padding: 10px;
+  }
+  
+  .tooltip {
+    background-color: #ebeffe;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  .class-selection-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  
+  .class-card {
+    position: relative;
+    width: 250px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    color: #434552;
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    cursor: pointer;
+    border: 2px solid transparent;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    flex: 0 1 calc(33.333% - 10px); /* Responsive columns */
+  }
+  
+  .class-content {
+    font-size: 12px;
+    text-align: left;
+  }
+  
+  /* Explanation Box */
+  .explanation-box {
+    background-color: #eaf3fe; /* Soft blue background for contrast */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-left: 4px solid #607bfc; /* Accent color */
+  }
+  
+  /* Option Cards */
+  .trademark-type-group {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+  }
+  
+  .option-card {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ffffff; /* Off-white background */
+    border: 1px solid #d3d3d3; /* Contrast outline */
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  margin-top:10px;
+  margin-bottom:10px;
+  }
+  
+  .option-card:hover {
+    border-color: #607bfc; /* Highlight on hover */
+  }
+  
+  .logo-image {
+    height: 45px;
+    margin-top: 10px;
+  }
+  
+  /* Consistent Section Header */
+  .section-header {
+    background-color: #434552;
+    color: white;
+    padding: 20px;
+    font-weight: 600;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Section Title */
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0; /* Subtle border for separation */
+    padding-bottom: 5px;
+  }
+  
+  /* Container styling for radio card group */
+  .radio-card-group {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* Ensure cards stretch evenly */
+    gap: 20px; /* Spacing between cards */
+    padding: 20px;
+    flex-wrap: wrap; /* Wrap the cards on smaller screens */
+  }
+  
+  /* Styling for individual radio card */
+  .radio-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 15px;
+    border: 1px solid #d3d3d3;
+    border-radius: 8px;
+    width: 100%; /* Make the card take up full width of the parent */
+    max-width: 300px; /* Optional: Limit the max width */
+    height: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    flex: 1; /* Allow the card to flexibly resize */
+  }
+  
+  /* Content within each radio card */
+  .radio-card-content {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    color: #434552;
+    padding: 10px;
+  }
+  
+  /* Highlight border color when the radio card is active */
+  .el-radio.is-checked .radio-card {
+   
+    box-shadow: 0 2px 10px rgba(103, 194, 58, 0.4); /* Slight glow effect */
+  }
+  
+  /* Add hover effect */
+  .radio-card:hover {
+    border-color: #607bfc;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .radio-card {
+      max-width: 100%;
+    }
+  }
+  
+  .radio-card-group {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* Ensure cards stretch evenly */
+    gap: 20px; /* Spacing between cards */
+    padding: 20px;
+    flex-wrap: wrap; /* Wrap the cards on smaller screens */
+  }
+  
+  .el-radio {
+    transition: all 0.3s ease;
+  }
+  
+  .radio-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+    color:#67c23a
+  }
+  
+  .radio-option {
+    flex: 1;
+    height: 150px;
+    padding: 20px;
+  padding-top: 70px;
+  padding-bottom: 70px;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    margin: 0;
+    color: #434552;
+    width: 100%;
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+  }
+  
+  /* Spinner Section Styling */
+  .spinner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8fafc; /* Light gray background for contrast */
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    margin-top: 20px; /* Space above spinner */
+    margin-bottom: 20px; /* Space below spinner */
+  }
+  
+  .ai-thinking {
+    margin-top: 10px; /* Space above text */
+    font-size: 16px;
+    font-weight: 500;
+    color: #434552; /* Subtle text color */
+    text-align: center; /* Center align text */
+  }
+  
+  /* AI Response Box Styling */
+  .response-box {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px; /* Space above the response box */
+    font-size: 15px;
+    line-height: 1.5;
+    border: 2px solid #607bfc; /* Subtle blue border to match theme */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for elevation */
+    max-height: 400px; /* Optional: Max height to prevent overflow */
+    overflow-y: auto; /* Scroll if content overflows */
+  }
+  
+  /* AI Response Box Typography */
+  .response-box h2, .response-box h3, .response-box h4, .response-box p {
+    margin: 10px 0; /* Space between elements */
+    color: #434552; /* Consistent color with theme */
+  }
+  
+  .response-box p {
+    font-size: 14px; /* Consistent paragraph font size */
+    margin-bottom: 10px; /* Space after each paragraph */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .spinner-container,
+    .response-box {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+  
+  .hidden {
+      display: none;
+  }
+  
+  /* Container for full-width cards */
+  .full-width-card-container {
+      display: flex;
+      flex-direction: column; /* Stack cards vertically */
+      gap: 15px; /* Space between cards */
+  }
+  
+  /* Hover effect */
+  .class-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border-color: #607bfc;
+  }
+  
+  /* Handle selected cards */
+  input[type="checkbox"]:checked + .class-card {
+      border-color: #607bfc;
+      background-color: #f0f4ff;
+  }
+  
+  /* Class heading styles */
+  .class-heading {
+      font-size: 16px;
+      font-weight: bold;
+      color: #607bfc;
+      margin-bottom: 10px;
+  }
+  
+  /* Class content styles */
+  .class-content {
+      font-size: 14px;
+      color: #434552;
+  }
+  
+  /* Responsive adjustments for mobile */
+  @media (max-width: 768px) {
+      .class-card {
+          width: 100%; /* Full width on smaller screens */
+      }
+  }
+  
+  /* Selected card style */
+  .class-card.selected {
+    border-color: #607bfc;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    background-color: #f0f4ff;
+  }
+  
+  /* Checkbox styles */
+  .class-checkbox {
+    margin-right: 10px;
+    pointer-events: none; /* Prevent clicking on the checkbox directly */
+  }
+  
+  /* Container adjustments for responsive layout */
+  .responsive-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center; /* Center align cards */
+    align-items: center; /* Vertically center within container */
+  }
+  
+  /* Prevent scrolling by limiting height and showing all cards */
+  .response-box {
+    max-height: 100vh; /* Set max height to viewport */
+    overflow: hidden; /* Hide overflow to prevent scrolling */
+    padding: 10px;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+  }
+  
+  .info-banner {
+    background-color: #eaf3fe; /* Subtle blue */
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #607bfc;
+    margin-bottom: 15px;
+    min-height: 54px;
+  }
+  
+  .info-banner-icon {
+    font-size: 18px; /* Make icon slightly larger */
+    color: #607bfc; /* Accent color */
+  }
+  
+  .price-banner-icon {
+    font-size: 18px; /* Make icon slightly larger */
+    color: #3ac17e; /* Accent color */
+  }
+  
+  .price-banner {
+    background-color: #e8f9f2; /* Subtle green */
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 18px;
+    display: inline-flex; /* Allows content to grow dynamically */
+    align-items: center;
+    gap: 10px;
+    color: #434552;
+    margin-bottom: 15px;
+    height: auto; /* Let the height adjust based on content */
+    font-family: Montserrat, sans-serif;
+  min-height:56px;
+  
+    flex-wrap: wrap; /* Ensures content wraps nicely */
+    white-space: normal; /* Allows text wrapping within the element */
+    max-width: 100%; /* Prevents box from exceeding container width */
+    box-sizing: border-box; /* Ensures padding is included within width */
+  }
+  
+  .search-banner {
+    background-color: #e8f9f2; /* Subtle green */
+    color: #2e9a65;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 18px;
+    display: inline-flex; /* Allows content to grow dynamically */
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    height: auto; /* Let the height adjust based on content */
+  min-height:56px;
+    flex-wrap: wrap; /* Ensures content wraps nicely */
+    white-space: normal; /* Allows text wrapping within the element */
+    max-width: 100%; /* Prevents box from exceeding container width */
+    box-sizing: border-box; /* Ensures padding is included within width */
+  }
+  
+  .class-selection-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    padding: 20px;
+  }
+  
+  .class-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .class-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+  
+  .form-section {
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #fffffff; /* Light background */
+  }
+  
+  .primary-btn {
+    background-color: #607bfc;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .primary-btn:hover {
+    background-color: #506ed4; /* Darker shade on hover */
+  }
+  
+  
+  .form-section {
+    max-width: 100vw; /* Consistent max width */
+    margin: 0;
+    padding: 20 10; /* Left and right padding */
+    box-sizing: border-box; /* Prevent content overflow */
+  }
+  
+  .section-content {
+    margin: 40px 40;
+    padding: 0; /* Ensure no extra padding */
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .section-content {
+    margin: 20px 0;
+    padding: 10px 0; /* Remove padding for a more streamlined layout */
+  }
+  
+  /* Ensuring the total cost card aligns well and has visual appeal */
+  .total-cost-card {
+    background-color: #eaf3fe; /* Highlighted blue for emphasis */
+    border-radius: 8px; /* Soft rounded corners */
+  
+    color: #607bfc; /* White text for contrast */
+    display: flex;
+    align-items: center;
+    height: 56px; /* Match the height of the text field */
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    margin-left: -4px; /* Slight overlap to touch the incrementor */
+  }
+  
+  /* Styling the cost text */
+  .total-cost-text {
+    font-size: 20px;
+    margin-left: 10px; /* Space between icon and text */
+    white-space: nowrap;
+  }
+  
+  /* Consistent sizing between input and cost */
+  .class-input,
+  .total-cost-card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Icon color consistency */
+  .total-cost-card v-icon {
+    margin-right: 10px; /* Space between icon and text */
+    color: white;
+  }
+  
+  /* Ensure the input and cost card are visually balanced */
+  .class-input,
+  .total-cost-card {
+    border-radius: 8px; /* Match the card's rounded corners */
+    height: 56px; /* Consistent height */
+  }
+  
+  /* Alignment fix to remove spacing between columns */
+  .v-col.pl-0 {
+    padding-left: 0 !important;
+  }
+  
+  .v-col.pr-0 {
+    padding-right: 0 !important;
+  }
+  
+  /* Wrapper for the AI suggestion section */
+  .ai-suggestion-wrapper {
+    background-color: #f5f8ff; /* Light background for separation */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  /* Wrapper for the AI suggestion section */
+  .choose-wrapper {
+    background-color: #f5f8ff; /* Light background for separation */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  /* Container for the banner and button */
+  .ai-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #eaf3fe; /* Soft blue for banner consistency */
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px; /* Space between header and AI suggestions */
+    border: 1px solid #d1e3ff;
+  }
+  
+  /* Refresh button styling */
+  .refresh-button {
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
+  
+  /* Spinner positioning */
+  .spinner-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Header for AI Suggestions */
+  .ai-suggestions-header {
+  margin-top: 20px;
+    text-align: center;
+    margin-bottom: -10px;
+  }
+  
+  .ai-suggestions-header h4 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #607bfc;
+  }
+  
+  /* Response box for AI suggested classes */
+  .response-box {
+    background-color: white;
+    border: 1px solid #d1e3ff;
+    border-radius: 8px;
+    padding: 15px;
+  }
+  
+  /* Container for the AI suggested classes cards */
+  .class-selection-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  /* Styling for each card */
+  .class-card {
+    background: #ffffff;
+    border: 1px solid #d1e3ff;
+    border-radius: 8px;
+    padding: 15px;
+    width: calc(50% - 15px); /* Two cards per row */
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .class-card:hover {
+    transform: translateY(-4px); /* Hover effect */
+  }
+  
+  .class-card.selected {
+    border-color: #607bfc;
+  }
+  
+  /* Styling for card headings */
+  .class-heading {
+    font-size: 16px;
+    font-weight: 600;
+    color: #607bfc;
+  }
+  
+  /* Styling for card content */
+  .class-content {
+    font-size: 14px;
+    margin-top: 10px;
+    color: #434552;
+  }
+  
+  .custom-radio-card .el-radio__input.is-checked .el-radio__inner,
+  .custom-radio-card .el-radio__input .el-radio__inner {
+    display: none; /* Hide the inner radio button checkmark */
+  }
+  
+  .info-banner {
+    background-color: #ebeffe; /* Subtle blue */
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #607bfc;
+    margin-bottom: 15px;
+    min-height: 54px;
+  }
+  
+  /* Style for info-banner in AI section */
+  .info-banner {
+    background-color: #eaf3fe; /* Subtle blue for AI */
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #607bfc; /* Darker blue for the text */
+  }
+  
+  /* Style for info-banner in Manual selection */
+  .manual-info-banner {
+    background-color: #e8f9f2; /* Subtle green */
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #3ac17e; /* Darker green */
+  }
+  
+  /* Hover effects for the radio cards */
+  .custom-radio-card:hover {
+    border-color: #607bfc; /* or #3ac17e for manual */
+    box-shadow: 0 2px 10px rgba(96, 123, 252, 0.4); /* Subtle glow */
+  }
+  
+  /* General button styles */
+  .v-btn {
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: none; /* Ensure buttons aren't uppercase */
+  }
+  
+  .section-header {
+    background-color: #434552;
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .review-card,
+  .price-quote-card {
+    background-color: #eaf3fe;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .review-card-title,
+  .price-quote-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #434552;
+  }
+  
+  .review-card-text,
+  .price-quote-text {
+    font-size: 14px;
+    color: #434552;
+  }
+  
+  .review-item {
+    margin-bottom: 15px;
+  }
+  
+  .v-avatar img {
+    border-radius: 10px;
+    border: 1px solid #607bfc;
+  }
+  
+  .confirm-pay-button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .confirm-add-to-cart-button {
+    margin-top: 20px;
+    background-color: #607bfc;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+  }
+  
+  .confirm-add-to-cart-button:hover {
+    background-color: #506ed4;
+  }
+  
+  .add-trademark-button {
+    margin-top: 20px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .stripe-card-element {
+    margin-top: 20px;
+  }
+  
+  /* Styling for the trademark table header */
+    .trademark-table thead th {
+      background-color: #f5f5f5; /* Light grey background */
+      font-weight: bold; /* Bold header text */
+      text-align: left; /* Align text to left */
+      padding: 10px; /* Padding for spacing */
+    }
+  
+    /* Styling for the rows */
+    .trademark-table tr {
+      transition: background-color 0.3s ease; /* Smooth transition on hover */
+    }
+  
+    .trademark-table tr:hover {
+      background-color: #f0f0f0; /* Slightly darker grey on hover */
+    }
+  
+    /* Make font and text more readable */
+    .trademark-table td {
+      padding: 10px;
+      font-family: 'Montserrat', sans-serif; /* Use modern font */
+      color: #434552; /* Dark grey text */
+    }
+  
+    /* Add space between rows */
+    .trademark-table tr:not(:last-child) {
+      border-bottom: 1px solid #e0e0e0; /* Add a separator line */
+    }
+  
+    /* Styling the remove button */
+    .v-btn {
+      color: #607bfc;
+    }
+  
+  .section-card {
+      background-color: #ebeffe;
+    }
+  
+  .v-data-table th {
+    background-color: #d4dbfe;
+    color: #434552;
+    text-align: left;
+    font-size: 16px;
+    font-weight:700;
+  }
+  
+  .radio-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+  }
+  .custom-radio-card {
+    height: 150px;
+    width: 250px;
+    padding: 20px;
+    text-align: center;
+    border: 2px solid #ccc;
+    transition: all 0.3s;
+  }
+  .primary-button {
+    border-color: #007bff;
+    background-color: #e3f2fd;
+  }
+  .primary-button:hover {
+    background-color: #bbdefb;
+    border-color: #0056b3;
+  }
+  .secondary-button:hover {
+    background-color: #f1f1f1;
+  }
+  .button-text {
+    font-size: 35px;
+    color: #333;
+  }
+  .button-subtext {
+    font-size: 16px;
+    color: #555;
+  }
+  .conflicts-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  .price-banner {
+    background-color: #e0f2f1; /* Slightly darker green */
+    color: #00796b;
+    padding: 10px 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .price-banner-icon {
+    color: #00796b;
+  }
+  
+  .content-container {
+    padding: 20px; /* Uniform padding for all steps */
+    margin-bottom: 20px;
+    min-height: 600px; /* Prevents shaking - Adjust based on the height of your largest step */
+  }
+  
+  .v-divider.v-theme--light {
+    display: none;
+  }
+  
+  .v-data-table-footer__items-per-page {
+    margin-top: -20px;
+  }
+  
+  .v-data-table-footer__items-per-page {
+    margin-top: -20px;
+  }
+  
+  html, body {
+    overflow-y: auto; /* Hides vertical scrollbar */
+    margin: 0;
+    padding: 0;
+  }
+  
+  </style>
+
+<script>
+
+  const { createApp, computed, ref, reactive, watch, onMounted, nextTick } = Vue
+	const { createVuetify } = Vuetify
+	const { marked } = window;
+
+// 	const { createVueMultiselect } = VueMultiselect
+
+
+	const vuetify = createVuetify()
+	
+  app = createApp(
+		{
+		// components: {
+    //   'vue-multiselect': VueMultiselect
+    // },
+    setup() {
+			const classes = ref([
+  {
+    class_title: '1 - Chemicals',
+    class_heading: 'Chemicals for use in industry, science and photography, as well as in agriculture, horticulture and forestry; unprocessed artificial resins, unprocessed plastics; fire extinguishing and fire prevention compositions; tempering and soldering preparations; substances for tanning animal skins and hides; adhesives for use in industry; putties and other paste fillers; compost, manures, fertilizers; biological preparations for use in industry and science',
+    tracking_id: 'CLASS 1 - Chemicals',
+    class_no: '1',
+    card_heading: '#1 Chemical products 🧪',
+    card_content: 'Chemicals used in industry, science and photography, as well as in agriculture, horticulture and forestry; unprocessed artificial resins, unprocessed plastics; manures; fire extinguishing compositions; tempering and soldering preparations; chemical substances for preserving foodstuffs; tanning substances; adhesives used in industry; unprocessed plastics in the form of liquids, chips or granules.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/blue_class1.png'
+  },
+  {
+    class_title: '2 - Paints',
+    class_heading: 'Paints, varnishes, lacquers; preservatives against rust and against deterioration of wood; colorants, dyes; inks for printing, marking and engraving; raw natural resins; metals in foil and powder form for use in painting, decorating, printing and art',
+    tracking_id: 'CLASS 2 - Paints',
+    class_no: '2',
+    card_heading: '#2 Paint products 🎨',
+    card_content: 'Paints, varnishes, lacquers; preservatives against rust and against deterioration of wood; colorants; mordants; raw natural resins; metals in foil and powder form for painters, decorators, printers and artists.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/blue_class2.png'
+  },
+  {
+    class_title: '3 - Cosmetics and Cleaning Substances',
+    class_heading: 'Non-medicated cosmetics and toiletry preparations; non-medicated dentifrices; perfumery, essential oils; bleaching preparations and other substances for laundry use; cleaning, polishing, scouring and abrasive preparations',
+    tracking_id: 'CLASS 3 - Cosmetics and Cleaning Substances',
+    class_no: '3',
+    card_heading: '#3 Cosmetics and Cleaning Products 🧴',
+    card_content: 'Bleaching preparations and other substances for laundry use; cleaning, polishing, scouring and abrasive preparations; soaps; perfumery, essential oils, cosmetics, hair lotions; dentifrices; deodorants for personal use; air perfuming preparations.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/blue_class3.png'
+  },
+  {
+    class_title: '4 - Industrial Oils',
+    class_heading: 'Industrial oils and greases, wax; lubricants; dust absorbing, wetting and binding compositions; fuels and illuminants; candles and wicks for lighting',
+    tracking_id: 'CLASS 4 - Industrial Oils',
+    class_no: '4',
+    card_heading: '#4 Industrial oils ️️🛢️',
+    card_content: 'Industrial oils and greases; lubricants; dust absorbing, wetting and binding compositions; fuels and illuminants; candles and wicks for lighting; combustible fuels, electricity and scented candles.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/blue_class4.png'
+  },
+  {
+    class_title: '5 - Pharmaceuticals',
+    class_heading: 'Pharmaceuticals, medical and veterinary preparations; sanitary preparations for medical purposes; dietetic food and substances adapted for medical or veterinary use, food for babies; dietary supplements for human beings and animals; plasters, materials for dressings; material for stopping teeth, dental wax; disinfectants; preparations for destroying vermin; fungicides, herbicides',
+    tracking_id: 'CLASS 5 - Pharmaceuticals',
+    class_no: '5',
+    card_heading: '#5 Pharmaceutical and veterinary 💊',
+    card_content: 'Pharmaceutical and veterinary preparations; sanitary preparations for medical purposes; dietetic substances adapted for medical use, food for babies; plasters, materials for dressings; material for stopping teeth, dental wax; disinfectants; preparations for destroying vermin; fungicides, herbicides; foods and beverages which are adapted for medical purposes; air deodorising preparations; disposable nappies of paper for babies.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/blue_class5.png'
+  },
+  {
+    class_title: '6 - Common Metals',
+    class_heading: 'Common metals and their alloys, ores; metal materials for building and construction; transportable buildings of metal; non-electric cables and wires of common metal; small items of metal hardware; metal containers for storage or transport; safes',
+    tracking_id: 'CLASS 6 - Common Metals',
+    class_no: '6',
+    card_heading: '#6 Metal Products 🛤',
+    card_content: 'Common metals and their alloys; metal building materials; transportable buildings of metal; materials of metal for railway tracks; non-electric cables and wires of common metal; ironmongery, small items of metal hardware; pipes and tubes of metal; safes; goods of common metal not included in other classes; ores; unwrought and partly wrought common metals; metallic windows and doors; metallic framed conservatories.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/blue_class6.png'
+  },
+  {
+    class_title: '7 - Machines',
+    class_heading: 'Machines, machine tools, power-operated tools; motors and engines, except for land vehicles; machine coupling and transmission components, except for land vehicles; agricultural implements, other than hand-operated hand tools; incubators for eggs; automatic vending machines',
+    tracking_id: 'CLASS 7 - Machines',
+    class_no: '7',
+    card_heading: '#7 Machinery Products ⚙️',
+    card_content: 'Machines and machine tools; motors and engines (except for land vehicles); parts of engines and motors; machine coupling and transmission components (except for land vehicles); exhausts and starters (for vehicles); vacuum cleaners; electric drills; electric screwdrivers; incubators for eggs.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/blue_class7.png'
+  },
+  {
+    class_title: '8 - Hand Tools',
+    class_heading: 'Hand tools and implements, hand-operated; cutlery; side arms, except firearms; razors',
+    tracking_id: 'CLASS 8 - Hand Tools',
+    class_no: '8',
+    card_heading: '#8 Hand Tool Products 🪒',
+    card_content: 'Hand tools and hand operated implements; cutlery; side arms; razors; electric razors and hair cutters.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/blue_class8.png'
+  },
+  {
+    class_title: '9 - Computers and Scientific Devices, Software',
+    class_heading: 'Scientific, research, navigation, surveying, photographic, cinematographic, audiovisual, optical, weighing, measuring, signalling, detecting, testing, inspecting, life-saving and teaching apparatus and instruments; apparatus and instruments for conducting, switching, transforming, accumulating, regulating or controlling the distribution or use of electricity; apparatus and instruments for recording, transmitting, reproducing or processing sound, images or data; recorded and downloadable media, computer software, blank digital or analogue recording and storage media; mechanisms for coin-operated apparatus; cash registers, calculating devices; computers and computer peripheral devices; diving suits, divers’ masks, ear plugs for divers, nose clips for divers and swimmers, gloves for divers, breathing apparatus for underwater swimming; fire-extinguishing apparatus',
+    tracking_id: 'CLASS 9 - Computers and Scientific Devices, Software',
+    class_no: '9',
+    card_heading: '#9 Computer, Electrical & Scientific Products 🖥️',
+    card_content: 'Scientific, photographic, cinema, optical, weighing, measuring, apparatus and instruments; switching, transforming, or controlling electricity; apparatus for recording, transmission or reproduction of sound or images; data carriers; calculating machines, data processing equipment and computers; recorded media, computer hardware and firmware; computer software; software downloadable from the Internet; downloadable electronic publications; compact discs; digital music; telecomms apparatus; mouse mats; mobile phone accessories; contact lenses, spectacles and sunglasses.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/blue_class9.png'
+  },
+  {
+    class_title: '10 - Medical Supplies',
+    class_heading: 'Surgical, medical, dental and veterinary apparatus and instruments; artificial limbs, eyes and teeth; orthopaedic articles; suture materials; therapeutic and assistive devices adapted for the disabled; massage apparatus; apparatus, devices and articles for nursing infants; sexual activity apparatus, devices and articles',
+    tracking_id: 'CLASS 10 - Medical Supplies',
+    class_no: '10',
+    card_heading: '#10 Medical Instrument Products 🦷',
+    card_content: 'Surgical, medical, dental and veterinary apparatus and instruments, artificial limbs, eyes and teeth; orthopaedic articles; suture materials; sex aids; massage apparatus; supportive bandages; furniture adapted for medical use.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class10.png'
+  },
+  {
+    class_title: '11 - Appliances',
+    class_heading: 'Apparatus and installations for lighting, heating, cooling, steam generating, cooking, drying, ventilating, water supply and sanitary purposes',
+    tracking_id: 'CLASS 11 - Appliances',
+    class_no: '11',
+    card_heading: '#11 Environmental Control Instruments ♨️',
+    card_content: 'Apparatus for lighting, heating, steam generating, cooking, refrigerating, drying, ventilating, water supply and sanitary purposes; air conditioning apparatus; electric kettles; gas and electric cookers; vehicle lights and vehicle air conditioning units.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class11.png'
+  },
+  {
+    class_title: '12 - Vehicles',
+    class_heading: 'Vehicles; apparatus for locomotion by land, air or water',
+    tracking_id: 'CLASS 12 - Vehicles',
+    class_no: '12',
+    card_heading: '#12 Vehicles and locomotives 🚘',
+    card_content: 'Vehicles; apparatus for locomotion by land, air or water; wheelchairs; motors and engines for land vehicles; vehicle body parts and transmissions.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class12.png'
+  },
+  {
+    class_title: '13 - Firearms',
+    class_heading: 'Firearms; ammunition and projectiles; explosives; fireworks',
+    tracking_id: 'CLASS 13 - Firearms',
+    class_no: '13',
+    card_heading: '#13 Firearm Products 💣',
+    card_content: 'Firearms; ammunition and projectiles, explosives; fireworks.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class13.png'
+  },
+  {
+    class_title: '14 - Precious Metals',
+    class_heading: 'Precious metals and their alloys; jewellery, precious and semi-precious stones; horological and chronometric instruments',
+    tracking_id: 'CLASS 14 - Precious Metals',
+    class_no: '14',
+    card_heading: '#14 Jewelery Products 💎',
+    card_content: 'Precious metals and their alloys; jewellery, costume jewellery, precious stones; horological and chronometric instruments, clocks and watches.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class14.png'
+  },
+  {
+    class_title: '15 - Musical Instruments',
+    class_heading: 'Musical instruments; parts and accessories for musical instruments',
+    tracking_id: 'CLASS 15 - Musical Instruments',
+    class_no: '15',
+    card_heading: '#15 Musical Instrument Products 🎵',
+    card_content: 'Musical instruments; stands and cases adapted for musical instruments.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class15.png'
+  },
+  {
+    class_title: '16 - Paper Goods and Stationery',
+    class_heading: 'Paper, cardboard and goods made from these materials, not included in other classes; printed matter; bookbinding material; photographs; stationery; adhesives for stationery or household purposes; artists’ materials; paint brushes; typewriters and office requisites (except furniture); instructional and teaching material (except apparatus); plastic materials for packaging (not included in other classes); printers’ type; printing blocks',
+    tracking_id: 'CLASS 16 - Paper Goods',
+    class_no: '16',
+    card_heading: '#16 Paper Goods and Printed Material 🗞️',
+    card_content: 'Paper, cardboard and goods made from these materials; printed matter; book binding material; photographs; stationery; adhesives for stationery or household purposes; artists\' materials; paint brushes; typewriters packaging materials; printers\' type; printing blocks; printed publications; paint boxes for children; cheque book holders.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class16.png'
+  },
+  {
+    class_title: '17 - Rubber Products',
+    class_heading: 'Rubber, gutta-percha, gum, asbestos, mica and goods made from these materials and not included in other classes; plastics in extruded form for use in manufacture; packing, stopping and insulating materials; flexible pipes, not of metal',
+    tracking_id: 'CLASS 17 - Rubber Products',
+    class_no: '17',
+    card_heading: '#17 Rubber Products 🥽',
+    card_content: 'Rubber, gutta-percha, gum, asbestos, mica and goods made from these materials; plastics in extruded form for use in manufacture; semi-finished plastics materials for use in further manufacture; stopping and insulating materials; flexible non-metallic pipes.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class17.png'
+  },
+  {
+    class_title: '18 - Leather Goods',
+    class_heading: 'Leather and imitations of leather, and goods made of these materials and not included in other classes; animal skins, hides; trunks and travelling bags; umbrellas, parasols and walking sticks; whips, harness and saddlery',
+    tracking_id: 'CLASS 18 - Leather Goods',
+    class_no: '18',
+    card_heading: '#18 Leather Products 💼',
+    card_content: 'Leather and imitations of leather; animal skins, hides; trunks and travelling bags; handbags, rucksacks, purses; umbrellas, parasols and walking sticks; whips, harness and saddlery; clothing for animals.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class18.png'
+  },
+  {
+    class_title: '19 - Building Materials',
+    class_heading: 'Building materials (non-metallic); non-metallic rigid pipes for building; asphalt, pitch and bitumen; non-metallic transportable buildings; monuments, not of metal',
+    tracking_id: 'CLASS 19 - Building Materials',
+    class_no: '19',
+    card_heading: '#19 Non-Metallic Building Material Products 🛣️',
+    card_content: 'Non-metallic building materials; non-metallic rigid pipes for building; asphalt, pitch and bitumen; non-metallic transportable buildings; non-metallic monuments; non-metallic framed conservatories, doors and windows.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class19.png'
+  },
+  {
+    class_title: '20 - Furniture',
+    class_heading: 'Furniture, mirrors, picture frames; goods (not included in other classes) of wood, cork, reed, cane, wicker, horn, bone, ivory, whalebone, shell, amber, mother-of-pearl, meerschaum and substitutes for all these materials, or of plastics',
+    tracking_id: 'CLASS 20 - Furniture',
+    class_no: '20',
+    card_heading: '#20 Furniture Products 🪑',
+    card_content: 'Furniture, mirrors, picture frames; articles made of wood, cork, reed, cane, wicker, horn, bone, ivory, whalebone, shell, amber, mother-of-pearl, meerschaum or plastic which are not included in other classes; garden furniture; pillows and cushions.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class20.png'
+  },
+  {
+    class_title: '21 - Household Utensils',
+    class_heading: 'Household or kitchen utensils and containers (not of precious metal or coated therewith); combs and sponges; brushes (except paint brushes); brush-making materials; articles for cleaning purposes; steel wool; unworked or semi-worked glass (except glass used in building); glassware, porcelain and earthenware not included in other classes',
+    tracking_id: 'CLASS 21 - Household Utensils',
+    class_no: '21',
+    card_heading: '#21 Houseware and Glass Products 🧽',
+    card_content: 'Household or kitchen utensils and containers; combs and sponges; brushes; brush-making materials; articles for cleaning purposes; steel wool; articles made of ceramics, glass, porcelain or earthenware which are not included in other classes; electric and non-electric toothbrushes.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class21.png'
+  },
+  {
+    class_title: '22 - Ropes and Textile Products',
+    class_heading: 'Ropes, string, netting, tents, awnings, tarpaulins, sails, sacks and bags (not included in other classes); padding and stuffing materials (except of rubber or plastics); raw fibrous textile materials',
+    tracking_id: 'CLASS 22 - Ropes and Textile Products',
+    class_no: '22',
+    card_heading: '#22 Ropes, Cordage and Fiber Products 🪢',
+    card_content: 'Ropes, string, nets, tents, awnings, tarpaulins, sails, sacks for transporting bulk materials; padding and stuffing materials which are not made of rubber or plastics; raw fibrous textile materials.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class22.png'
+  },
+  {
+    class_title: '23 - Yarns and Threads',
+    class_heading: 'Yarns and threads, for textile use',
+    tracking_id: 'CLASS 23 - Yarns and Threads',
+    class_no: '23',
+    card_heading: '#23 Yarns and Threads 🧶',
+    card_content: 'Yarns and threads, for textile use.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class23.png'
+  },
+  {
+    class_title: '24 - Textiles',
+    class_heading: 'Textiles and textile goods, not included in other classes; bed and table covers',
+    tracking_id: 'CLASS 24 - Textiles',
+    class_no: '24',
+    card_heading: '#24 Fabrics 🛏️',
+    card_content: 'Textiles and textile goods; bed and table covers; travellers\' rugs, textiles for making articles of clothing; duvets; covers for pillows, cushions or duvets; tea cosies.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class24.png'
+  },
+  {
+    class_title: '25 - Clothing, Footwear, Headgear',
+    class_heading: 'Clothing, footwear, headgear',
+    tracking_id: 'CLASS 25 - Clothing, Footwear, Headgear',
+    class_no: '25',
+    card_heading: '#25 Clothing Products 👗',
+    card_content: 'Clothing, footwear, headgear.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class25.png'
+  },
+  {
+    class_title: '26 - Lace, Embroidery, Ribbons, Braids, Ornaments',
+    class_heading: 'Lace and embroidery, ribbons and braid; buttons, hooks and eyes, pins and needles; artificial flowers',
+    tracking_id: 'CLASS 26 - Lace, Embroidery, Ribbons, Braids, Ornaments',
+    class_no: '26',
+    card_heading: '#26 Ribbons, buttons and pins 🎀',
+    card_content: 'Lace and embroidery, ribbons and braid; buttons, hooks and eyes, pins and needles; artificial flowers; badges for wear.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class26.png'
+  },
+  {
+    class_title: '27 - Floor Coverings',
+    class_heading: 'Carpets, rugs, mats and matting, linoleum and other materials for covering existing floors; wall hangings (non-textile)',
+    tracking_id: 'CLASS 27 - Floor Coverings',
+    class_no: '27',
+    card_heading: '#27 Floor covering products 🌫️',
+    card_content: 'Carpets, rugs, mats and matting, linoleum and other materials for covering existing floors; wall hangings (non-textile); wallpaper.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class27.png'
+  },
+  {
+    class_title: '28 - Games, Toys, Sports Equipment',
+    class_heading: 'Games and playthings; gymnastic and sporting articles not included in other classes; decorations for Christmas trees',
+    tracking_id: 'CLASS 28 - Games, Toys, Sports Equipment',
+    class_no: '28',
+    card_heading: '#28 Toys and sporting goods products 🃏',
+    card_content: 'Games and playthings; playing cards; gymnastic and sporting articles; decorations for Christmas trees; childrens\' toy bicycles.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class28-1.png'
+  },
+  {
+    class_title: '29 - Meat, Fish, Poultry, Game, Fruit, Vegetables, Edible Oils and Fats',
+    class_heading: 'Meat, fish, poultry and game; meat extracts; preserved, frozen, dried and cooked fruits and vegetables; jellies, jams, fruit sauces; eggs, milk and milk products; edible oils and fats',
+    tracking_id: 'CLASS 29 - Meat, Fish, Poultry, Game, Fruit, Vegetables, Edible Oils and Fats',
+    class_no: '29',
+    card_heading: '#29 Meats and processed foods 🥩',
+    card_content: 'Meat, fish, poultry and game; meat extracts; preserved, dried and cooked fruits and vegetables; jellies, jams, fruit sauces; eggs, milk and milk products; edible oils and fats; prepared meals; soups and potato crisps.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class29.png'
+  },
+  {
+    class_title: '30 - Coffee, Tea, Cocoa, Sugar, Rice, Tapioca, Sago, Artificial Coffee, Flour and Preparations Made from Cereals, Bread, Pastry and Confectionery, Ices',
+    class_heading: 'Coffee, tea, cocoa, sugar, rice, tapioca, sago, artificial coffee; flour and preparations made from cereals, bread, pastry and confectionery, ices',
+    tracking_id: 'CLASS 30 - Coffee, Tea, Cocoa, Sugar, Rice, Tapioca, Sago, Artificial Coffee, Flour and Preparations Made from Cereals, Bread, Pastry and Confectionery, Ices',
+    class_no: '30',
+    card_heading: '#30 Staple Food Products 🍚',
+    card_content: 'Coffee, tea, cocoa, sugar, rice, tapioca, sago, artificial coffee; flour and preparations made from cereals, bread, pastry and confectionery, ices; honey, treacle; yeast, baking-powder; salt, mustard; vinegar, sauces (condiments); spices; ice; sandwiches; prepared meals; pizzas, pies and pasta dishes.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class30.png'
+  },
+  {
+    class_title: '31 - Agricultural, Horticultural and Forestry Products',
+    class_heading: 'Agricultural, horticultural and forestry products and grains not included in other classes; living animals; fresh fruits and vegetables; seeds, natural plants and flowers; foodstuffs for animals, malt',
+    tracking_id: 'CLASS 31 - Agricultural, Horticultural and Forestry Products',
+    class_no: '31',
+    card_heading: '#31 Natural Agricultural Products 🍓',
+    card_content: 'Agricultural, horticultural and forestry products; live animals; fresh fruits and vegetables, seeds, natural plants and flowers; foodstuffs for animals; malt; food and beverages for animals.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class31.png'
+  },
+  {
+    class_title: '32 - Beers, Mineral and Aerated Waters, Non-Alcoholic Beverages, Fruit Beverages and Fruit Juices',
+    class_heading: 'Beers; mineral and aerated waters and other non-alcoholic beverages; fruit beverages and fruit juices; syrups and other preparations for making beverages',
+    tracking_id: 'CLASS 32 - Beers, Mineral and Aerated Waters, Non-Alcoholic Beverages, Fruit Beverages and Fruit Juices',
+    class_no: '32',
+    card_heading: '#32 Light Beverage Products 🧃',
+    card_content: 'Beers; mineral and aerated waters; non-alcoholic drinks; fruit drinks and fruit juices; syrups for making beverages; shandy, de-alcoholised drinks, non-alcoholic beers and wines.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class32.png'
+  },
+  {
+    class_title: '33 - Alcoholic Beverages (Except Beers)',
+    class_heading: 'Alcoholic beverages (except beers)',
+    tracking_id: 'CLASS 33 - Alcoholic Beverages (Except Beers)',
+    class_no: '33',
+    card_heading: '#33 Wines and Spirits Products 🥃',
+    card_content: 'Alcoholic wines; spirits and liqueurs; alcopops; alcoholic cocktails.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class33.png'
+  },
+  {
+    class_title: '34 - Tobacco, Smokers’ Articles, Matches',
+    class_heading: 'Tobacco, smokers’ articles, matches',
+    tracking_id: 'CLASS 34 - Tobacco, Smokers’ Articles, Matches',
+    class_no: '34',
+    card_heading: '#34 Smoker\'s Products 🚬',
+    card_content: 'Tobacco; smokers\' articles; matches; lighters for smokers.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class34.png'
+  },
+  {
+    class_title: '35 - Advertising, Business Management, Business Administration, Office Functions',
+    class_heading: 'Advertising; business management; business administration; office functions',
+    tracking_id: 'CLASS 35 - Advertising, Business Management, Business Administration, Office Functions',
+    class_no: '35',
+    card_heading: '#35 Advertising and Business Services 📺',
+    card_content: 'Retail services connected with the sale of [list specific goods]; advertising; business management; business administration; office functions; electronic data storage; organisation, operation and supervision of loyalty and incentive schemes; advertising services provided via the Internet; production of television and radio advertisements; accountancy; auctioneering; trade fairs; opinion polling; data processing; provision of business information.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class35.png'
+  },
+  {
+    class_title: '36 - Insurance, Financial Affairs, Monetary Affairs',
+    class_heading: 'Insurance; financial affairs; monetary affairs',
+    tracking_id: 'CLASS 36 - Insurance, Financial Affairs, Monetary Affairs',
+    class_no: '36',
+    card_heading: '#36 Financial and Estate Agency Services 🏛️',
+    card_content: 'Insurance; financial services; estate agency and letting services; building society services; banking; stockbroking; financial services provided via the Internet; issuing of tokens of value in relation to bonus and loyalty schemes; provision of financial information.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class36.png'
+  },
+  {
+    class_title: '37 - Building Construction, Repair, Installation Services',
+    class_heading: 'Building construction; repair; installation services',
+    tracking_id: 'CLASS 37 - Building Construction, Repair, Installation Services',
+    class_no: '37',
+    card_heading: '#37 Construction and Repair Services 👷🏽‍♀️',
+    card_content: 'Building construction; repair; installation services; installation, maintenance and repair of computer hardware; painting and decorating; cleaning services.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class37.png'
+  },
+  {
+    class_title: '38 - Telecommunications',
+    class_heading: 'Telecommunications',
+    tracking_id: 'CLASS 38 - Telecommunications',
+    class_no: '38',
+    card_heading: '#38 Communications Services ✉️',
+    card_content: 'Telecommunications services; chat room services; portal services; e-mail services; providing user access to the Internet; radio and television broadcasting.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class38.png'
+  },
+  {
+    class_title: '39 - Transport, Packaging and Storage of Goods, Travel Arrangement',
+    class_heading: 'Transport; packaging and storage of goods; travel arrangement',
+    tracking_id: 'CLASS 39 - Transport, Packaging and Storage of Goods, Travel Arrangement',
+    class_no: '39',
+    card_heading: '#39 Transportation & Storage Services 🚛',
+    card_content: 'Transport; packaging and storage of goods; travel arrangement; distribution of electricity; travel information; provision of car parking facilities.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class39.png'
+  },
+  {
+    class_title: '40 - Treatment of Materials',
+    class_heading: 'Treatment of materials',
+    tracking_id: 'CLASS 40 - Treatment of Materials',
+    class_no: '40',
+    card_heading: '#40 Treatment of Materials Services 🎞️',
+    card_content: 'Treatment of materials; development, duplicating and printing of photographs; generation of electricity.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class40.png'
+  },
+  {
+    class_title: '41 - Education, Providing of Training, Entertainment, Sporting and Cultural Activities',
+    class_heading: 'Education; providing of training; entertainment; sporting and cultural activities',
+    tracking_id: 'CLASS 41 - Education, Providing of Training, Entertainment, Sporting and Cultural Activities',
+    class_no: '41',
+    card_heading: '#41 Education, Sport, Culture 🏀',
+    card_content: 'Education; providing of training; entertainment; on-line entertainment; sporting and cultural activities; lottery services; electronic games services provided by means of the Internet; the provision of on-line electronic publications.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class41.png'
+  },
+  {
+    class_title: '42 - Scientific and Technological Services and Research and Design Relating Thereto, Industrial Analysis and Research Services, Design and Development of Computer Hardware and Software',
+    class_heading: 'Scientific and technological services and research and design relating thereto; industrial analysis and research services; design and development of computer hardware and software',
+    tracking_id: 'CLASS 42 - Scientific and Technological Services and Research and Design Relating Thereto, Industrial Analysis and Research Services, Design and Development of Computer Hardware and Software',
+    class_no: '42',
+    card_heading: '#42 Computer, Software & Scientific Services 👩🏼‍💻',
+    card_content: 'Scientific and technological services and research and design relating thereto; industrial analysis and research services; design and development of computer hardware and software; computer programming; installation, maintenance and repair of computer software; computer consultancy services; design, drawing and commissioned writing for the compilation of web sites; creating, maintaining and hosting the web sites of others; design services.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class42.png'
+  },
+  {
+    class_title: '43 - Services for Providing Food and Drink, Temporary Accommodation',
+    class_heading: 'Services for providing food and drink; temporary accommodation',
+    tracking_id: 'CLASS 43 - Services for Providing Food and Drink, Temporary Accommodation',
+    class_no: '43',
+    card_heading: '#43 Restaurant & Hotel Services 🏨',
+    card_content: 'Services for providing food and drink; temporary accommodation; restaurant, bar and catering services; provision of holiday accommodation; booking and reservation services for restaurants and holiday accommodation; retirement home services; creche services.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class43.png'
+  },
+  {
+    class_title: '44 - Medical, Beauty and Agricultural Services',
+    class_heading: 'Medical services; veterinary services; hygienic and beauty care for human beings or animals; agriculture, horticulture and forestry services',
+    tracking_id: 'CLASS 44 - Medical, Beauty and Agricultural Services',
+    class_no: '44',
+    card_heading: '#44 Medical, Beauty & Agricultural Services 🩺',
+    card_content: 'Medical services; veterinary services; hygienic and beauty care for human beings or animals; agriculture, horticulture and forestry services; dentistry services; medical analysis for the diagnosis and treatment of persons; pharmacy advice; garden design services.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class44.png'
+  },
+  {
+    class_title: '45 - Legal Services, Security Services, Personal and Social Services Rendered by Others to Meet the Needs of Individuals',
+    class_heading: 'Legal services; security services for the protection of property and individuals; personal and social services rendered by others to meet the needs of individuals',
+    tracking_id: 'CLASS 45 - Legal Services, Security Services, Personal and Social Services Rendered by Others to Meet the Needs of Individuals',
+    class_no: '45',
+    card_heading: '#45 Personal & Legal & Social Services ⛑️',
+    card_content: 'Legal services; conveyancing services; security services for the protection of property and individuals; social work services; consultancy services relating to health and safety; consultancy services relating to personal appearance; provision of personal tarot readings; dating services; funeral services and undertaking services; fire-fighting services; detective agency services.',
+    image_url: 'https://www.brandlaw.co.za/wp-content/uploads/2024/05/class45.png'
+  }
+]);
+
+      const message = ref('Hello vue!')
+// 			const buttonColor = ref('orange');
+			const chatGPTClassification = ref(false)
+			const chatGPTTMCheck = ref('')
+			
+// 			const ownerType = ref('company');
+			
+			var trademark = ref({
+          name: null,
+          type: null,
+          description: null,
+          classes: false,
+          products: null,
+          aiAdvice: null,
+        });
+// 			var currentTrademark = ref({
+// 				tmIndex: 0,
+// 				tmType: 'wordmark',
+// 				query: 'KIXX SPORTS',
+// 				businessDescription: 'Various protective gear for martial arts',
+// 				selectedClasses: [], // Copy of selected classes
+// 				selectedProducts: [], // Copy of selected products
+// 				owner: {
+//           type: 'company',
+//           name: 'BRANDLAW (PTY LTD)',
+//           address: '1 shanklin crescent, camps bay, cape town',
+//         },
+// 				downloadUrl: null,
+// 				priceQuote: 2990,
+// 				selectedCountries: 'South Africa',
+// 				selectedFile: false,
+// 				numberOfClasses: 1,
+// 				submittedClasses: '',
+// 			});
+			const currentTrademark = reactive({
+// 				tmIndex: 0, // Assuming this is static or managed separately
+				get tmIndex() {
+					return tmIndex.value; // One-way sync from `query` to `currentTrademark.query`
+				},
+				get tmType() {
+					return tmType.value; // One-way sync from `query` to `currentTrademark.query`
+				},
+				get query() {
+					return query.value; // One-way sync from `query` to `currentTrademark.query`
+				},
+				get businessDescription() {
+					return businessDescription.value; // Syncs from root property
+				},
+				get downloadUrl() {
+					return downloadUrl.value; // Syncs from root property
+				},
+				get numberOfClasses() {
+					return numberOfClasses.value; // Syncs from root property
+				},
+				get owner() {
+					return owner.value; // Syncs from root property
+				},
+				get comprehensiveSearch() {
+					return comprehensiveSearch.value; // Syncs from root property
+				},
+				get priceQuote() {
+					return priceQuote.value; // Syncs from root property
+				},
+				get selectedCountries() {
+					return selectedCountries.value; // Syncs from root property
+				},
+				get computedClassNumbersVariable() {
+					return computedClassNumbersVariable.value; // Syncs from root property
+				},
+				get detailsConfirmed() {
+					return detailsConfirmed.value; // One-way sync from `query` to `currentTrademark.query`
+				},
+			});
+
+			// `currentTrademark` as a reactive object
+// 			const currentTrademark = reactive({
+// 					get tmIndex() {
+// 						return tmIndex.value;
+// 					},
+// 					set tmIndex(value) {
+// 						tmIndex.value = value;
+// 					},
+
+// 					get query() {
+// 						return query.value;
+// 					},
+// 					set query(value) {
+// 						query.value = value;
+// 					},
+
+// 					get downloadUrl() {
+// 						return downloadUrl.value;
+// 					},
+// 					set downloadUrl(value) {
+// 						downloadUrl.value = value;
+// 					},
+
+// 					get businessDescription() {
+// 						return businessDescription.value;
+// 					},
+// 					set businessDescription(value) {
+// 						businessDescription.value = value;
+// 					},
+
+// 					get numberOfClasses() {
+// 						return numberOfClasses.value;
+// 					},
+// 					set numberOfClasses(value) {
+// 						numberOfClasses.value = value;
+// 					},
+
+// 					get computedClassNumbersVariable() {
+// 						return computedClassNumbersVariable.value;
+// 					},
+// 					set computedClassNumbersVariable(value) {
+// 						computedClassNumbersVariable.value = value;
+// 					},
+
+// 					get owner() {
+// 						return owner.value;
+// 					},
+// 					set owner(value) {
+// 						owner.value = value;
+// 					},
+
+// 					get priceQuote() {
+// 						return priceQuote.value;
+// 					},
+// 					set priceQuote(value) {
+// 						priceQuote.value = value;
+// 					}
+// 				});
+			var tmType = ref('wordmark');
+			var businessDescription = ref('Various protective gear for martial arts');
+			var selectedCountries = ref(['South Africa']);
+			var query = ref('KIXX SPORTS');
+			var owner = ref({
+          type: 'company',
+          name: 'BRANDLAW (PTY LTD)',
+          address: '1 shanklin crescent, camps bay, cape town',
+        });
+			var selected = ref([]); // used for v-model in VueMultiselect
+			var products = ref([]);
+			var tmIndex = ref(0);
+			var tmNextIndex = ref(1);
+			var selectedFile = ref(null);
+			var downloadUrl = ref(null);
+			const confirmAndPay = async () => {
+//           const { token, error } = await stripe.createToken(card);
+//           if (error) {
+//             console.error('Error creating token:', error);
+//           } else {
+//             console.log('Token created:', token);
+//             // Send token to your server to process the payment
+//             fetch('https://your-server.com/charge', {
+//               method: 'POST',
+//               headers: {
+//                 'Content-Type': 'application/json',
+//               },
+//               body: JSON.stringify({ token: token.id, amount: priceQuote.value }),
+//             })
+//             .then(response => response.json())
+//             .then(data => {
+//               console.log('Payment successful:', data);
+//             })
+//             .catch(error => {
+//               console.error('Error processing payment:', error);
+//             });
+//           }
+        };
+      var uploadFile = () => {
+          if (!selectedFile.value) return;
+
+          const formData = new FormData();
+          formData.append('file', selectedFile.value);
+
+          fetch('https://your-server.com/upload', {
+            method: 'POST',
+            body: formData,
+          })
+          .then(response => response.json())
+          .then(data => {
+//             console.log('File uploaded successfully:', data);
+          })
+          .catch(error => {
+            console.error('Error uploading file:', error);
+          });
+        };
+			
+      const server = ref("https://api.brandcenter.co.za");
+      const asyncFind = async (query) => {
+//         console.log('running asyncFind');
+        isLoading.value = true;
+        if (query.length > 1) {
+//             console.log('query.length > 1');
+            try {
+                const response = await axios.get(`${server.value}/trademarks/api/products/?q=${query}`);
+//                 console.log('response');
+//                 console.log(response);
+                products.value = response.data.results.map(a => ({
+                    product_name: a.product_name,
+                    class_no: a.class_no,
+                    tracking_id: `(${a.class_no}) ${a.product_name}`,
+                })).sort((a, b) => a.tracking_id.length - b.tracking_id.length);
+            } catch (error) {
+//                 console.log('caught');
+                console.error('Error fetching products:', error);
+            } finally {
+//               console.log('finally');
+                isLoading.value = false;
+            }
+        } else {
+//             console.log('query.length is 0');
+            products.value = classes.value;
+            isLoading.value = false;
+        }
+    };
+		const summary = ref({});
+		const toggleSelection = (item) => {
+// 			console.log(item);
+
+			// Check if any item with the same `class_no` exists in `selectedClasses`
+			const itemClassNo = item.class_no;
+			const index = selectedClasses.value.findIndex(selectedItem => selectedItem.class_no === itemClassNo);
+
+			if (index === -1) {
+					// If not found, add the item to both selectedClasses and selectedProducts
+					selectedClasses.value.push(item);
+					selectedProducts.value.push(item);
+			} else {
+					// If found, remove all items with the same `class_no` from both arrays
+					selectedClasses.value = selectedClasses.value.filter(selectedItem => selectedItem.class_no !== itemClassNo);
+					selectedProducts.value = selectedProducts.value.filter(selectedItem => selectedItem.class_no !== itemClassNo);
+			}
+
+    updateUniqueClassNos();
+};
+// 		const toggleSelection = (item) => {
+// 				console.log(item)
+// 				const index = selectedClasses.value.indexOf(item);
+// 				if (index === -1) {
+// 					selectedClasses.value.push(item);
+//           selectedProducts.value.push(item);
+          
+// 				} else {
+// 					selectedClasses.value.splice(index, 1);
+//           selectedProducts.value.splice(index, 1);
+// 				}
+// 				updateUniqueClassNos();
+// 			};
+
+const getChatGPTClassification = () => {
+// 			 const askAiClassButton = document.getElementById('askAiClassButton');
+				chatGPTClassification.value = false;
+				askAiClassSpinner.value = true;
+	      askAiSpinner.value = true;
+
+// 				askAiClassButton.innerText = 'Asking...';
+	
+      fetch('http://127.0.0.1:5000/ai', {
+//       fetch('https://brandcenter.co.za:8443/ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message: businessDescription.value })
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+//         console.log('API Response:', data);  // Log the response for debugging
+
+        // Access the classification data correctly
+        const classificationData = data.responses?.classification;
+//         console.log('Type of classification:', typeof classificationData);
+//         console.log('Is classification an array?', Array.isArray(classificationData));
+
+        if (Array.isArray(classificationData)) {
+          chatGPTClassification.value = classificationData;
+          summary.value = data.responses?.summary || {};
+        } else {
+//           console.error('Error: The classification data is not an array.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      })
+			.finally(() => {
+
+			  askAiClassSpinner.value = false;
+	      askAiSpinner.value = false;
+//         aiSuggested.value = true;
+				
+//         askAiClassButton.disabled = false;
+//         askAiClassButton.innerText = 'Ask AI';
+// 				buttonColor = 'orange'; // Change to desired color
+			
+    	});
+		};
+
+const formattedResponse = computed(() => {
+  // Return empty string if there's no valid data
+  if (!Array.isArray(chatGPTClassification.value) || chatGPTClassification.value.length === 0) return '';
+
+  // Return formatted chatGPTClassification content as HTML strings
+  return chatGPTClassification.value.map((item, index) => {
+    return {
+      description: item.description.replace(/\*\*(.*?)\*\*/g, '<span style="color: #607bfc;">$1</span>'),
+      details: item.details 
+        ? item.details.replace(/\*\*(.*?)\*\*/g, '<span style="color: #607bfc;">$1</span>') 
+        : '', // Handle missing details gracefully
+      class_no: item.class_no
+    };
+  });
+});
+
+	
+
+	const getAiTmCheck = () => {
+    const askAiButton = document.getElementById('askAiButton');
+		
+		askAiSpinner.value = true;
+    
+    askAiButton.innerText = 'Asking...';
+
+// 		buttonColor = 'green'; // Change to desired color
+
+    fetch('http://127.0.0.1:5000/ai_tm_advice', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ description: businessDescription.value, trademark_name: query.value })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+//         console.log('API Response:', data);  // Log the response for debugging
+
+        // Display data in a formatted manner
+        if (data.response) {
+            chatGPTTMCheck.value = formatMarkdownResponse(data.response);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    })
+    .finally(() => {
+
+			  askAiSpinner.value = false;
+
+        askAiButton.disabled = false;
+        askAiButton.innerText = 'Ask AI';
+// 				buttonColor = 'orange'; // Change to desired color
+			
+    });
+};
+			
+const getAiSearchFeedback = () => {
+//     const askAiButton = document.getElementById('askAiButton');
+		
+// 		askAiSpinner.value = true;
+    
+//     askAiButton.innerText = 'Asking...';
+
+// // 		buttonColor = 'green'; // Change to desired color
+
+//     fetch('http://127.0.0.1:5000/ai_tm_advice', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ description: businessDescription.value, trademark_name: query.value })
+//     })
+//     .then(response => {
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! Status: ${response.status}`);
+//         }
+//         return response.json();
+//     })
+//     .then(data => {
+//         console.log('API Response:', data);  // Log the response for debugging
+
+//         // Display data in a formatted manner
+//         if (data.response) {
+//             chatGPTTMCheck.value = formatMarkdownResponse(data.response);
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Error:', error);
+//     })
+//     .finally(() => {
+
+// 			  askAiSpinner.value = false;
+
+//         askAiButton.disabled = false;
+//         askAiButton.innerText = 'Ask AI';
+// // 				buttonColor = 'orange'; // Change to desired color
+			
+//     });
+};
+
+const formatMarkdownResponse = (data) => {
+    if (typeof data === 'string') {
+        return marked.parse(data); // If data is a string, directly convert to HTML
+    }
+
+    // Otherwise, treat data as an object with nested fields
+    let formattedResponse = '';
+    for (const [key, value] of Object.entries(data)) {
+        formattedResponse += `## ${formatKey(key)}\n${value}\n\n`;
+    }
+    return marked.parse(formattedResponse); // Convert Markdown to HTML
+};
+	
+// const formatMarkdownResponse = (data) => {
+//     let formattedResponse = '';
+//     for (const [key, value] of Object.entries(data)) {
+//         formattedResponse += `## ${formatKey(key)}\n${value}\n\n`;
+//     }
+//     return marked.parse(formattedResponse); // Convert Markdown to HTML
+// };
+
+const formatKey = (key) => {
+    return key.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+};
+
+
+// 			const formattedResponse = computed(() => {
+//       if (!Array.isArray(chatGPTClassification.value) || chatGPTClassification.value.length === 0) return '';
+
+//       let formattedHtml = '<ul>';
+//       chatGPTClassification.value.forEach(item => {
+//         formattedHtml += `<li><b>${item.class_number}:</b> ${item.description.replace(/\*/g, '<b>').replace(/_/g, '<u>').replace(/\*/g, '</b>').replace(/_/g, '</u>')}</li>`;
+//         formattedHtml += `<p>${item.details.replace(/\*/g, '<b>').replace(/_/g, '<u>').replace(/\*/g, '</b>').replace(/_/g, '</u>')}</p>`;
+//       });
+//       formattedHtml += '</ul>';
+
+//       return formattedHtml;
+//     });
+
+// 			 const formattedResponse = computed(() => {
+//           // Assuming the response contains plain text with simple formatting markers like * for bold, _ for underline, etc.
+//           let response = chatGPTClassification.value;
+
+//           // Example of simple formatting rules:
+//           response = response.replace(/\n/g, '<br>'); // New lines to <br>
+//           response = response.replace(/\*([^*]+)\*/g, '<b>$1</b>'); // *bold* to <b>bold</b>
+//           response = response.replace(/_([^_]+)_/g, '<u>$1</u>'); // _underline_ to <u>underline</u>
+//           response = response.replace(/- ([^\n]+)/g, '<li>$1</li>'); // - item to <li>item</li>
+
+//           return `<ul>${response}</ul>`; // Wrap the entire response in a list
+//         });
+
+// 			const getChatGPTClassification = () => {
+// // 				fetch('https://brandcenter.co.za:8443/ai', {
+// 				fetch('http://127.0.0.1:5000/ai', {
+// 						method: 'POST',
+//             headers: {
+//               'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ message: this.businessDescription })
+//           })
+//           .then(response => {
+//             if (!response.ok) {
+//               throw new Error(`HTTP error! Status: ${response.status}`);
+//             }
+//             return response.json();
+//           })
+//           .then(data => {
+//             this.chatGPTClassification = data.responses.classification;
+//           })
+//           .catch(error => {
+//             console.error('Error:', error);
+//           });
+// 		};
+			const selectedProducts = ref([]);
+			var classesList = ref([]);
+			var classesListArray = ref([]);
+			var currentStep = ref(1);
+			var stepperKey = ref(0);
+			const increaseKey = () => {
+        stepperKey++
+      };
+
+// 			const stepperNext = () => {
+//         this.$refs.stepperActions.next()
+//       };
+			const selectedClasses = ref([]);
+			const checkProducts = computed(() => {
+        if (products.value.length > 0) {
+            return products.value;
+        } else if (query.value.length < 1) {
+            return classes.value;
+            // return null;
+        } else {
+            // console.log('else');
+            return classes.value;
+            // return null;
+        };
+			});
+			const isLoading = ref(false);
+			const page = ref(1);
+    	const items = ref([{
+        title: 'Item ',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde voluptatem!',
+    }]);
+			
+		const uniqueClassNos = ref([]);
+
+        // Watch for changes in selectedProducts
+        watch(selectedProducts, (newVal) => {
+          updateSelectedClasses();
+          updateUniqueClassNos();
+        });
+    
+        // Watch for changes in selectedClasses
+        watch(selectedClasses, (newVal) => {
+          updateUniqueClassNos();
+        });
+    
+        const updateSelectedClasses = () => {
+          const classSet = new Set(selectedClasses.value.map(cls => cls.class_no));
+          selectedProducts.value.forEach(product => {
+            if (!classSet.has(product.class_no)) {
+              const classItem = classes.value.find(cls => cls.class_no === product.class_no);
+              if (classItem) {
+                selectedClasses.value.push(classItem);
+                classSet.add(classItem.class_no);
+              }
+            }
+          });
+    
+          selectedClasses.value = selectedClasses.value.filter(cls => {
+            return selectedProducts.value.some(product => product.class_no === cls.class_no);
+          });
+        };
+    
+        const updateUniqueClassNos = () => {
+					const uniqueNos = new Set();
+					const uniqueProducts = [];
+
+					// Loop through selected products to add unique class numbers
+					selectedProducts.value.forEach((product) => {
+						if (!uniqueNos.has(product.class_no)) {
+							uniqueNos.add(product.class_no);
+							uniqueProducts.push(product);
+						}
+					});
+
+					// Loop through selected classes to add unique class numbers
+					selectedClasses.value.forEach((cls) => {
+						if (!uniqueNos.has(cls.class_no)) {
+							uniqueNos.add(cls.class_no);
+							uniqueProducts.push(cls);
+						}
+					});
+
+					// Update uniqueClassNos with unique class entries
+					uniqueClassNos.value = Array.from(uniqueNos).map((class_no) => {
+						return (
+							selectedProducts.value.find((product) => product.class_no === class_no) ||
+							selectedClasses.value.find((cls) => cls.class_no === class_no)
+						);
+					});
+
+					// Update the number of classes to be at least 1
+					numberOfClasses.value = Math.max(1, uniqueClassNos.value.length);
+				};
+
+	
+// 	  const addAnotherTrademark = () => {
+//         query.value = '';
+//         businessDescription.value = '';
+//         selectedClasses.value = [];
+//         selectedProducts.value = [];
+//         owner.value = {
+//           name: '',
+//           type: '',
+//           address: ''
+//         };
+//         downloadUrl.value = '';
+//         priceQuote.value = 0;
+//       };
+//     const addAnotherTrademark = () => {
+// 			// Create a new trademark object
+// // 			const newTrademark = {
+// // 				tmIndex: tmNextIndex.value,
+// // 				query: query.value,
+// // 				businessDescription: businessDescription.value,
+// // 				selectedClasses: [...selectedClasses.value], // Copy of selected classes
+// // 				selectedProducts: [...selectedProducts.value], // Copy of selected products
+// // 				owner: { ...owner.value }, // Copy of owner details
+// // 				downloadUrl: downloadUrl.value,
+// // 				priceQuote: currentCost.value
+// // 			};
+// // 			
+// 			const newTrademark = {
+// 				tmIndex: tmNextIndex.value,
+// 				query: '',
+// 				businessDescription: '',
+// 				selectedClasses: [], // Copy of selected classes
+// 				selectedProducts: [], // Copy of selected products
+// 				 owner: { name: '', type: '', address: '' }, // New owner details
+// 				downloadUrl: null,
+// 				priceQuote: singleMarkCost,
+// 			};
+			
+// 			tmIndex = tmNextIndex.value
+			
+// 			tmNextIndex++
+
+// 			// Push the new object to the trademarks array
+// 			trademarks.value.push(newTrademark);
+			
+// 			// Set currentTrademark to this new object
+//   		updateCurrentTrademark(newTrademark);
+
+// 			console.log(trademarks)
+			
+// // 			currentStep.value = 1
+// // 			stepperKey.value = 0
+
+// 			// Reset the stepper to step 1
+// 			currentStep.value = 1;
+// 			stepperKey.value++;
+			
+// 			// Reset all form fields
+// // 			query.value = '';
+// // 			businessDescription.value = '';
+// // 			selectedClasses.value = [];
+// // 			selectedProducts.value = [];
+// // 			owner.value = {
+// // 				name: '',
+// // 				type: '',
+// // 				address: ''
+// // 			};
+// // 			downloadUrl.value = '';
+// // 			currentCost.value = singleMarkCost;
+// 		};
+// 		
+		const addAnotherTrademark = () => {
+					// Create a deep copy of currentTrademark before adding to trademarks
+// 					const trademarkCopy = JSON.parse(JSON.stringify(currentTrademark));
+
+					// Push the copied trademark to the array
+// 					trademarks.value.push(trademarkCopy);
+
+					// Increment the tmIndex for the new trademark
+
+					// Reset currentTrademark to a new empty object
+					updateCurrentTrademark({
+						tmIndex: tmNextIndex.value,
+						query: '',
+						comprehensiveSearch: false,
+						businessDescription: '',
+						selectedClasses: [], // Copy of selected classes
+						selectedProducts: [], // Copy of selected products
+						owner: { name: '', type: '', address: '' }, // New owner details
+						downloadUrl: null,
+						priceQuote: (tmType !== 'both' ? singleMarkCost.value : bothMarkCost.value) + (comprehensiveSearch.value === 'yes' ? searchCost.value : 0)
+					});
+			
+					detailsConfirmed.value = false;
+			
+					tmIndex.value = tmNextIndex.value;
+					tmNextIndex.value++;
+
+// 					console.log(trademarks);
+
+					// Reset stepper and form fields
+					currentStep.value = 1;
+			stepperKey.value++;
+		};
+
+		const confirmTrademark = () => {
+			
+			const trademarkCopy = JSON.parse(JSON.stringify(currentTrademark));
+			
+			detailsConfirmed.value = true;
+	
+			// Push the new object to the trademarks array
+			trademarks.value.push(trademarkCopy);
+
+// 			console.log(trademarks)
+		};
+// 		const goToStep1 = () => {
+//         currentStep.value = 1
+// 				currentStep = 1
+// 				stepperKey = 1
+// 				stepperKey.value = 1
+//       };
+		const clearTrademark = () => {
+			
+			updateCurrentTrademark({
+						tmIndex: tmNextIndex.value,
+						query: '',
+						comprehensiveSearch: false,
+						businessDescription: '',
+						selectedClasses: [], // Copy of selected classes
+						selectedProducts: [], // Copy of selected products
+						owner: { name: '', type: '', address: '' }, // New owner details
+						downloadUrl: null,
+						priceQuote: (tmType !== 'both' ? singleMarkCost.value : bothMarkCost.value) + (comprehensiveSearch.value === 'yes' ? searchCost.value : 0)
+					});
+						
+			detailsConfirmed.value = true;
+			currentTrademark.detailsConfirmed.value = true;
+			
+		};
+			const groupedClasses = computed(() => {
+          return selectedClasses.value.map(classItem => {
+            return {
+              ...classItem,
+              products: selectedProducts.value.filter(product => product.class_no === classItem.class_no)
+            };
+          });
+        });
+	  const attorneySelectClass = () => {
+        showAiRecommendations = false;
+      };
+   
+	  const askAiSpinner = ref(false);
+		const askAiClassSpinner = ref(false);
+	  const showAiRecommendations = ref(false);
+	  var numberOfClasses = ref(1);
+		var computedClassNumbersVariable = ref('');
+    const computedClassNumbers = computed(() => {
+			computedClassNumbersVariable = selectedClasses.value.map(item => item.class_no).join(', ');
+      return computedClassNumbersVariable
+    });
+		const searchCost = ref(3500);	
+		const singleMarkCost = ref(2990);
+		const bothMarkCost = ref(4980);
+		const selectedAIClasses = ref([]);
+		const currentCost = computed(() => {
+			const costPerClass = tmType.value === 'both' ? bothMarkCost.value : singleMarkCost.value;
+
+			// Ensure numberOfClasses.value is always at least 1 and a valid number
+			const validClassCount = Math.max(1, parseInt(numberOfClasses.value, 10) || 1);
+
+			return validClassCount * costPerClass;
+		});
+// 		var priceQuote = ref((tmType !== 'both' ? singleMarkCost.value : bothMarkCost.value) + (comprehensiveSearch ? searchCost.value : 0));
+		const priceQuote = computed(() => {
+			const baseCost = tmType.value !== 'both' ? singleMarkCost.value : bothMarkCost.value;
+			const additionalCost = comprehensiveSearch.value === 'yes' ? searchCost.value : 0;
+			return baseCost + additionalCost;
+		});
+// 		var totalCost = ref(singleMarkCost);
+		const totalCost = computed(() => {
+				return trademarks.value.reduce((acc, trademark) => acc + (trademark.priceQuote || 0), 0);
+		});
+	  const singleMarkCurrentCost = computed(() => {
+			return singleMarkCost.value * numberOfClasses.value;
+		});
+		const bothMarkCurrentCost = computed(() => {
+			return bothMarkCost.value * numberOfClasses.value;
+		});
+			
+		// Handle class selection
+    const handleClassSelection = (classNumber) => {
+        // Toggle the selected class
+        if (!selectedAIClasses.value.includes(classNumber)) {
+            selectedAIClasses.value.push(classNumber);
+        } else {
+            selectedAIClasses.value = selectedAIClasses.value.filter(cn => cn !== classNumber);
+        }
+
+        // Trigger any necessary updates
+        updateUniqueClassNos();
+    }
+		
+		
+		// Handle checkbox change
+		const handleCheckboxChange = (classNumber) => {
+        if (!selectedAIClasses.value.includes(classNumber)) {
+            selectedAIClasses.value.push(classNumber);
+        } else {
+            selectedAIClasses.value = selectedAIClasses.value.filter(cn => cn !== classNumber);
+        }
+
+        updateUniqueClassNos();
+    }
+		
+		// Handle checkbox change
+		const toggleAIClassSelection = (classNumber) => {
+        if (selectedAIClasses.includes(classNumber)) {
+            // Remove the class number from the selection
+            selectedAIClasses = selectedAIClasses.filter(c => c !== classNumber);
+        } else {
+            // Add the class number to the selection
+            selectedAIClasses.push(classNumber);
+        }
+        // Optionally, trigger any additional updates or side effects
+        updateUniqueClassNos();
+    }
+		
+		const classSelectionMode = ref('');
+// 		const aiSuggested = ref(false);
+
+//     const handleClassSelectionModeChange = (newValue) => {
+//       // Confirm the function is receiving the correct value
+//       console.log("Function selection mode changed to:", newValue);
+      
+//       // Run the function only if 'ai' is selected
+//       if (newValue.value === 'ai') {
+// 					console.log('newValue.value == "ai"')
+// 					console.log('aiSuggested:')
+// 					console.log(aiSuggested)
+// 					console.log('aiSuggested.value')
+// 					console.log(aiSuggested.value)
+// 					console.log('chatGPTClassification:')
+// 					console.log(chatGPTClassification)
+// 					console.log('chatGPTClassification.value')
+// 					console.log(chatGPTClassification.value)
+// 					getChatGPTClassification();
+// 					if (!aiSuggested.value) {
+// 						getChatGPTClassification();
+// 					}
+//       }
+//     };
+			
+// 			    // Handle selection mode change
+//     const handleClassSelectionModeChange = (value) => {
+//       // Only trigger if 'ai' is selected and it hasn't been triggered before
+//       if (value === 'ai' && !aiSuggested.value) {
+//         getChatGPTClassification();
+//       }
+//     };
+			
+// 		Watch for changes to classSelectionMode
+    watch(classSelectionMode, (newValue) => {
+      
+      // Run the function only if 'ai' is selected and if there are no generated suggestions yet
+      if (newValue === 'ai' && !chatGPTClassification.value) {
+        getChatGPTClassification();
+      }
+    });
+			
+		const getFormattedDescription = (description, classNo) => {
+        // Highlight keywords and return formatted description
+    		return `#${classNo} ${description.replace(/\*\*(.*?)\*\*/g, '<span style="color: #607bfc;">$1</span>')}`;
+    };
+			
+		const getFormattedDetails = (details) => {
+        // Highlight keywords and return formatted description
+    		return details.replace(/\*\*(.*?)\*\*/g, '<span style="color: #607bfc;">$1</span>');
+    };
+			
+		const isClassSelected = computed(() => {
+      return (item) => {
+        return selectedClasses.value.some(selectedItem => selectedItem.class_no === item.class_no);
+      }
+    });
+			
+		// Method to clear selections
+	const clearSelections = () => {
+		// Clear the selected classes
+		selectedClasses.value = [];
+
+		// Clear the selected products
+		selectedProducts.value = [];
+
+		// Reset the number of classes
+		numberOfClasses.value = 1;
+	};
+			
+		// Watch for changes to numberOfClasses and adjust selectedClasses as necessary
+		watch(numberOfClasses, (newVal) => {
+			// Get unique class numbers in selectedClasses
+			const uniqueClassNos = Array.from(new Set(selectedClasses.value.map(item => item.class_no)));
+
+			// Check if the new number of classes is smaller than the current unique class count
+			if (newVal < uniqueClassNos.length) {
+				// Find excess class numbers that need to be removed
+				const excessClassNos = uniqueClassNos.slice(newVal);
+
+				// Remove all items from selectedClasses that have class_no in excessClassNos
+				selectedClasses.value = selectedClasses.value.filter(item => !excessClassNos.includes(item.class_no));
+				selectedProducts.value = selectedProducts.value.filter(item => !excessClassNos.includes(item.class_no));
+			}
+		});
+
+    // Call the function initially to populate uniqueClassNos
+    updateUniqueClassNos();
+		
+		var submitTrademarks = ref([]);
+		var trademarks = ref([]);
+		var expanded = ref([]);		
+		var searchExpanded = ref([]);		
+		var detailsConfirmed = ref(false);		
+		const tableHeaders = ref([
+        { title: 'Trademark', key: 'query' },
+//         { title: 'Logo', key: 'downloadUrl' },
+//         { title: 'Business Description', key: 'businessDescription' },
+        { title: 'Selected Classes', key: 'computedClassNumbers' },
+        { title: 'Total # of Classes', key: 'numberOfClasses' },
+			        { title: 'Availability Search', key: 'comprehensiveSearch' },
+//         { title: 'Owner', key: 'owner' },
+        { title: 'Costs', key: 'priceQuote' },
+			  { title: '', key: '' },
+			{ title: '', key: 'data-table-expand' },
+      ]);
+// 			const loadTrademarkDetails = (item) => {
+//         tmIndex = item.tmIndex
+// 				query = item.query;
+//         downloadUrl = item.downloadUrl;
+//         businessDescription = item.businessDescription;
+//         numberOfClasses = item.numberOfClasses;
+//         computedClassNumbersVariable = item.computedClassNumbersVariable;
+//         owner = item.owner;
+//         priceQuote = item.priceQuote;
+//     };
+// 			const loadTrademarkDetails = (item) => {
+//         currentTrademark.tmIndex = item.tmIndex
+// 				currentTrademark.query = item.query;
+//         currentTrademark.downloadUrl = item.downloadUrl;
+//         currentTrademark.businessDescription = item.businessDescription;
+//         currentTrademark.numberOfClasses = item.numberOfClasses;
+//         computedClassNumbers = item.computedClassNumbers;
+//         currentTrademark.owner = item.owner;
+//         currentTrademark.priceQuote = item.priceQuote;
+//     };
+		const loadTrademarkDetails = (item) => {
+			
+				const newTrademark = { ...item };
+
+        updateCurrentTrademark(newTrademark)
+    };
+		const rowClick = (item, props) => {
+				props.expand(!props.isExpanded)
+    };
+		const toggleExpand = (item) => {
+			const itemValue = item.tmIndex; // Use the unique identifier
+			const index = expanded.value.indexOf(itemValue);
+
+			if (index === -1) {
+				// If the row is not expanded, add it to the array
+				expanded.value.push(itemValue);
+			} else {
+				// If the row is already expanded, remove it from the array
+				expanded.value.splice(index, 1);
+			}
+		};
+
+
+// 		const updateCurrentTrademark = (newValues) => {
+// 			// Update each property manually to avoid circular references
+// 			currentTrademark.value.tmIndex = newValues.tmIndex ?? currentTrademark.value.tmIndex;
+// 			currentTrademark.value.query = newValues.query ?? currentTrademark.value.query;
+// 			currentTrademark.value.downloadUrl = newValues.downloadUrl ?? currentTrademark.value.downloadUrl;
+// 			currentTrademark.value.businessDescription = newValues.businessDescription ?? currentTrademark.value.businessDescription;
+// 			currentTrademark.value.numberOfClasses = newValues.numberOfClasses ?? currentTrademark.value.numberOfClasses;
+// 			currentTrademark.value.computedClassNumbersVariable = newValues.computedClassNumbersVariable ?? currentTrademark.value.computedClassNumbersVariable;
+// 			currentTrademark.value.owner = newValues.owner ?? currentTrademark.value.owner;
+// 			currentTrademark.value.priceQuote = newValues.priceQuote ?? currentTrademark.value.priceQuote;
+// 			currentTrademark.value.selectedCountries = newValues.selectedCountries ?? currentTrademark.value.selectedCountries;
+// 			currentTrademark.value.selectedFile = newValues.selectedFile ?? currentTrademark.value.selectedFile;
+// // 			currentTrademark.value.submittedClasses = newValues.submittedClasses ?? currentTrademark.value.submittedClasses;
+// 		};
+// 		const updateCurrentTrademark = (newValues) => {
+// 			// Update each property manually to avoid circular references
+// 			currentTrademark.tmIndex = newValues.tmIndex ?? currentTrademark.tmIndex;
+// 			currentTrademark.query = newValues.query ?? currentTrademark.query;
+// 			currentTrademark.downloadUrl = newValues.downloadUrl ?? currentTrademark.downloadUrl;
+// 			currentTrademark.businessDescription = newValues.businessDescription ?? currentTrademark.businessDescription;
+// 			currentTrademark.numberOfClasses = newValues.numberOfClasses ?? currentTrademark.numberOfClasses;
+// 			currentTrademark.computedClassNumbersVariable = newValues.computedClassNumbersVariable ?? currentTrademark.computedClassNumbersVariable;
+// 			currentTrademark.owner = newValues.owner ?? currentTrademark.owner;
+// 			currentTrademark.priceQuote = newValues.priceQuote ?? currentTrademark.priceQuote;
+// 			currentTrademark.selectedCountries = newValues.selectedCountries ?? currentTrademark.selectedCountries;
+// 			currentTrademark.selectedFile = newValues.selectedFile ?? currentTrademark.selectedFile;
+// 		};
+		const updateCurrentTrademark = (newValues) => {
+			// Update each property manually for currentTrademark and root properties
+
+			// tmIndex
+			if (newValues.tmIndex !== undefined) {
+				currentTrademark.tmIndex = newValues.tmIndex;
+				tmIndex.value = newValues.tmIndex; // Update root property
+			}
+
+			// query
+			if (newValues.query !== undefined) {
+				currentTrademark.query = newValues.query;
+				query.value = newValues.query; // Update root property
+			}
+
+			// downloadUrl
+			if (newValues.downloadUrl !== undefined) {
+				currentTrademark.downloadUrl = newValues.downloadUrl;
+				downloadUrl.value = newValues.downloadUrl; // Update root property
+			}
+
+			// businessDescription
+			if (newValues.businessDescription !== undefined) {
+				currentTrademark.businessDescription = newValues.businessDescription;
+				businessDescription.value = newValues.businessDescription; // Update root property
+			}
+
+			// numberOfClasses
+			if (newValues.numberOfClasses !== undefined) {
+				currentTrademark.numberOfClasses = newValues.numberOfClasses;
+				numberOfClasses.value = newValues.numberOfClasses; // Update root property
+			}
+
+			// computedClassNumbersVariable
+			if (newValues.computedClassNumbersVariable !== undefined) {
+				currentTrademark.computedClassNumbersVariable = newValues.computedClassNumbersVariable;
+				computedClassNumbersVariable.value = newValues.computedClassNumbersVariable; // Update root property
+			}
+
+			// owner
+			if (newValues.owner !== undefined) {
+				currentTrademark.owner = newValues.owner;
+				owner.value = newValues.owner; // Update root property
+			}
+
+			// priceQuote
+			if (newValues.priceQuote !== undefined) {
+				currentTrademark.priceQuote = newValues.priceQuote;
+				priceQuote.value = newValues.priceQuote; // Update root property
+			}
+			
+			// comprehensiveSearch
+			if (newValues.comprehensiveSearch !== undefined) {
+				currentTrademark.comprehensiveSearch = newValues.comprehensiveSearch;
+				comprehensiveSearch.value = newValues.comprehensiveSearch; // Update root property
+			}
+
+			// selectedCountries
+			if (newValues.selectedCountries !== undefined) {
+				currentTrademark.selectedCountries = newValues.selectedCountries;
+				selectedCountries.value = newValues.selectedCountries; // Update root property
+			}
+
+			// selectedFile
+			if (newValues.selectedFile !== undefined) {
+				currentTrademark.selectedFile = newValues.selectedFile;
+				selectedFile.value = newValues.selectedFile; // Update root property
+			}
+		};
+
+
+    // Load trademark details into currentTrademark when a table row is clicked
+// 		const loadTrademarkDetails = (item, event) => {
+// 			Object.assign(currentTrademark, item);
+// 			 const itemValue = item.tmIndex; // Use the unique identifier
+// 				const index = expanded.value.indexOf(itemValue);
+
+// 				if (index === -1) {
+// 					// If the row is not expanded, add it to the array
+// 					expanded.value.push(itemValue);
+// 				} else {
+// 					// If the row is already expanded, remove it from the array
+// 					expanded.value.splice(index, 1);
+// 				}
+// 		};
+// 			const removeTrademark = (item) => {
+//         trademarks.value = trademarks.value.filter(tmIndex => tmIndex !== item);
+//     };
+		// Function to remove a trademark from the list
+		const removeTrademark = (item) => {
+			trademarks.value = trademarks.value.filter(trademark => trademark !== item);
+		};
+		const showEditModal = ref(false);
+    
+      const openEditModal = () => {
+        showEditModal.value = true;
+      };
+			
+			watch(query, (newVal) => {
+				if (newVal !== newVal.toUpperCase()) {
+					query.value = newVal.toUpperCase();
+				}
+			});
+
+      const saveChanges = () => {
+        showEditModal.value = false;
+        // Save changes to the currentTrademark or trigger an update event
+      };
+      const editInForm = (step) => {
+        // Logic to navigate to the specific step in the sequencer
+//         console.log(`Navigate to step: ${step}`);
+				currentStep.value = step;
+				stepperKey.value++;
+//         showEditModal.value = false;
+      };
+			var searchQuery = ref('');
+			var searchNames = ref([]);
+			var includeComprehensiveSearch = ref(false);
+			var startDate = ref([]);
+			var aiLoading = ref([]);
+			var aiResponse = ref('');
+			var searchResults = ref([]);
+			var comprehensiveSearch = ref(false);
+			const resultsHeaders = ref([
+				{ text: 'Trademark', value: 'trademark' },
+				{ text: 'Class', value: 'class_no' },
+// 				{ text: 'Status', value: 'status' },
+				{ text: 'Proprietor', value: 'proprietor' },
+			]);
+			const oldResultsHeaders = ref([
+// 				{
+//           text: 'File Date',
+//           value: 'file_date',
+//           align: ' d-none d-sm-table-cell'
+// // 					filterable: true,
+//         },
+        
+        
+        
+			{
+          text: 'Trade Mark',
+          value: 'trademark',
+        },
+        { text: 'Class', 
+          value: 'class_no' 
+        },
+// 			  { text: 'Number', value: 'application_no', align: ' d-none d-sm-table-cell' },
+//         { text: 'Status', value: 'status', align: ' d-none d-sm-table-cell' },
+			  {
+          text: 'Since',
+          value: 'year',
+					align: ' d-none d-md-table-cell'
+        },
+// 			{ text: '', value: 'data-table-select' },
+			{ text: 'Owner', value: 'proprietor', width: '20%', align: ' d-none d-md-table-cell' },
+// 				{ text: '', value: 'data-table-expand', align: ' d-none d-sm-table-cell'},
+//         { text: 'Status', 
+//           value: 'status'
+//         },
+//         {
+//           text: 'Review'
+//         },
+//         { text: 'File Date', value: 'file_date' },
+        
+//       { text: 'Acceptance', value: 'acceptance_date' },
+//       { text: 'Registration', value: 'registration_date' },
+//       { text: 'Image Url', value: 'image_url' },
+      ]);
+			const spinner = ref(false);
+			const addSearchName = () => {
+				if (searchQuery) {
+					searchNames.value.push(searchQuery.value);
+					searchQuery.value = '';
+				}
+			};
+			const removeSearchName = (index) => {
+  	    searchNames.splice(index, 1);
+   	 	};
+      const runTrademarkSearch = () => {
+      // Implement search logic here
+      // For example, fetch search results based on `searchNames`
+      // Populate `searchResults` with the fetched data
+   	  };
+			const analyzeTrademark = () => {
+				aiLoading = true;
+				// Implement AI analysis logic here
+				// Simulate AI response
+				setTimeout(() => {
+					aiResponse = "<p><strong>Analysis:</strong> The trademark appears to be distinctive, but there may be some conflicts with existing marks. Consider seeking legal advice.</p>";
+					aiLoading = false;
+				}, 2000);
+			};
+			
+			
+			const searchTMClicked = async () => { 
+				var trademarks = []
+				
+				query = this.query
+				spinner = true
+				isLoading = true
+
+				trademarks = await getSimilarMarks()
+		
+				return trademarks
+			};
+			
+			const serverRecords = ref("https://brandcenter.co.za");
+			
+			var searchTrademarks = ref([]);
+			var searchTrademarksExactClass = ref([]);
+			var searchTrademarksSimilarClass = ref([]);
+			
+			//##
+		const getSimilarMarks = async () => {
+				isLoading.value = true;
+				classesList = computedClassNumbersVariable;
+
+				// Set the class_nos to '0' if empty, else use classesList
+				const class_nos = classesList.value === '' ? '0' : classesList;
+
+			
+
+       ///##
+				const paramsObject = {
+					class_nos: class_nos,
+					no_related: false,
+					hide_inactive: true,
+					q: query.value, // Ensure you're accessing query.value correctly
+				};
+
+// 				console.log(paramsObject);
+
+				spinner.value = true;
+				try {
+					const response = await axios.get('https://brandcenter.co.za/trademarks/api/trademarks/', {
+						params: paramsObject,
+					});
+
+// 					console.log('response', response);
+					
+// 					console.log('class_nos ', class_nos)
+// 					console.log('uniqueClassNos ', uniqueClassNos)
+					
+
+					// Correctly assign the response data to searchTrademarks.value
+					searchTrademarks.value = response.data.results.map((a) => ({
+						trademark: a.trademark,
+						class_no: a.class_no,
+						application_no: a.application_no,
+						file_date: a.file_date,
+						year: a.file_date.substring(0, 4),
+						proprietor: a.proprietor,
+						status: a.status,
+					}));
+	
+					
+						// Convert `classesList.value` to an array if it's a string
+					const classNosSelected = typeof class_nos === 'string' 
+						? class_nos.split(',').map(item => item.trim()) 
+						: typeof class_nos === 'number'
+							? [class_nos.toString()] 
+							: Array.isArray(class_nos)
+								? class_nos
+								: [];
+					
+// 					console.log('classNosSelected: ',classNosSelected)
+					
+// 					classesListArray = classNosSelected
+
+// 					// Filter trademarks for exact class matches
+// 					searchTrademarksExactClass.value = searchTrademarks.value.filter((item) => {
+// 						console.log('item.class_no:', item.class_no.toString());
+// 						return classNosSelected.includes(item.class_no.toString());
+// 					});
+// 					
+					// Reset the arrays before processing
+					searchTrademarksExactClass.value = [];
+					searchTrademarksSimilarClass.value = [];
+
+					// Single iteration to distribute items into exact and similar classes
+					searchTrademarks.value.forEach(item => {
+						const classNoStr = item.class_no.toString();
+						if (classNosSelected.includes(classNoStr)) {
+							searchTrademarksExactClass.value.push(item);
+						} else {
+							searchTrademarksSimilarClass.value.push(item);
+						}
+					});
+					
+// 					console.log('searchTrademarksExactClass:', searchTrademarksExactClass.value);
+
+// 					// Filter trademarks for similar class matches if required
+// 					searchTrademarksSimilarClass.value = searchTrademarks.value.filter((item) => {
+// 						return classNosSelected.includes(!item.class_no.toString());
+// 					});
+					
+// 					console.log('searchTrademarksSimilarClass:', searchTrademarksSimilarClass.value);
+
+// 					console.log('Updated searchTrademarks:', searchTrademarks.value);
+				} catch (error) {
+					console.error('Error fetching trademarks:', error);
+				} finally {
+					isLoading.value = false;
+					spinner.value = false;
+				}
+			};
+
+			
+			const searchTimeout = ref(null);
+			
+			// Watch for changes in query or selectedClasses
+			watch([query, selectedClasses], () => {
+				// Clear the previous timeout if it exists
+				if (searchTimeout.value) {
+					clearTimeout(searchTimeout.value);
+				}
+
+				// Set a new timeout to trigger the search after a delay
+				searchTimeout.value = setTimeout(() => {
+					// Call the search function after a 500ms delay
+					getSimilarMarks();
+				}, 1000); // 500ms delay
+			});
+			
+			onMounted(() => {
+				if (query.value!='') {
+				   getSimilarMarks()	
+				}
+			})
+
+			var aiSearchFeedback = ref('');
+			
+			var selectedSimilarTMs = ref('');
+	
+			var hasStartedUsing = ref(false);
+	
+			var usageStartDate = ref('');
+	
+			var additionalNames = ref([]);
+			
+			const getColor = (item) => {
+				const classNo = item.class_no.toString();
+				const isInactiveStatus = ['Removed', 'Withdrawn', 'Abandoned', 'Invalid', 'Cancelled'].includes(item.status);
+				let output = 'black';
+				
+// 				console.log('classesListArray: ', classesListArray)
+
+				if (classesListArray.value.includes(classNo)) {
+					output = isInactiveStatus ? '#b3b3b3' : '#DD1C1A'; // Red for active, gray for inactive
+				} else if (classesList.value.length > 0) {
+					output = isInactiveStatus ? '#b3b3b3' : '#F9A03F'; // Orange for active, gray for inactive
+				} else {
+					output = isInactiveStatus ? '#b3b3b3' : '#607BFC'; // Blue for active, gray for inactive
+				}
+
+				return output;
+			};
+
+				
+// 		watch(currentTrademark, (newVal) => {
+// 			// Ensure you're not updating `currentTrademark` within this watch in a way that could re-trigger the watch
+// 			console.log('currentTrademark updated:', newVal);
+// 		}, { deep: true });
+			
+		// Automatically sync trademarks[0] with currentTrademark
+// 		watch(currentTrademark, (newVal) => {
+// 			// Make sure the currentTrademark is always the first item in trademarks array
+// 			if (trademarks.value.length === 0 || trademarks.value[0] !== newVal) {
+// 				trademarks.value[0] = newVal;
+// 			}
+// 		}, { deep: true });
+			
+			const returnSingleOwner = (propr) => {
+				var output = ''
+				try {
+					output = propr.split(';')[0]
+				} catch {
+					output = propr
+				}
+				return output
+			};
+					
+			const stepper = ref(null); // defining the stepper ref
+			
+			const goToNextStep = (next) => {
+					console.log('Next Step');
+					currentStep.value += 1;
+					const stepperElement = focus.value?.$el || focus.value; // For some Vue libraries, you might need .value.$el
+					next();
+					stepperElement.focus();
+				  	
+			};
+
+			const goToPreviousStep = (prev) => {
+					currentStep.value -= 1;
+					stepperKey.value++;
+					prev()
+					scrollToStepperTop();
+			};
+				
+				// const goToNextStep = () => {
+				// 		isGoingForward.value = true; // Indicate we're going forward
+				// 		goToPreviousStep(); // Call the "previous" function, which will now act as "next"
+				// };
+
+				// const goToPreviousStep = () => {
+				// 		if (isGoingForward.value) {
+				// 				// If we're using this to go forward, increment the step
+				// 				currentStep.value += 1;
+				// 				isGoingForward.value = false; // Reset the flag
+				// 		} else {
+				// 				// Normal behavior for going backward
+				// 				currentStep.value -= 1;
+				// 		}
+				// 		scrollToStepperTop(); // Ensure scrolling to the top for both directions
+				// };
+
+				
+// 			const scrollToStepperTop = async () => {
+// 				console.log('scrollToStepperTop')
+// 				const stepperElement = stepper.value?.$el || stepper.value; // For some Vue libraries, you might need .value.$el
+			
+// 				console.log(stepperElement)
+// 				if (stepperElement) {
+// 					console.log('stepper element found')
+// 					 stepperElement.scrollIntoView({
+// 							behavior: 'smooth',
+// // 							block: 'start',
+// 					});
+// 				}
+			
+// 			};
+// 			
+	const isGoingForward = ref(false);
+			
+	const scrollToStepperTop = async () => {
+    await nextTick();
+
+    // Temporarily scroll the window to the top before scrolling the stepper
+    window.scrollTo(0, 0);
+
+    const stepperElement = stepper.value?.$el || stepper.value;
+    if (stepperElement) {
+        const rect = stepperElement.getBoundingClientRect();
+
+        // Only scroll into view if necessary
+        if (rect.top < 0 || rect.bottom > window.innerHeight) {
+            console.log('Scrolling to stepper top');
+            stepperElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            });
+        }
+    }
+
+};
+			
+				
+// 			// Watcher for smooth scrolling on step change
+// 			watch(currentStep, async () => {
+// 				await nextTick(); // Ensures DOM is fully updated
+
+// 				 // Access the DOM element of v-stepper via the ref
+// 				const stepperElement = stepper.value?.$el || stepper.value; // For some Vue libraries, you might need .value.$el
+			
+// 				console.log(stepperElement)
+// 				if (stepperElement) {
+// 					console.log('stepper element found')
+// 					stepperElement.scrollTo({
+// 						top: 0,
+// 						behavior: 'smooth',
+// 					});
+// 				}
+// 			});
+
+			// #return
+      return {
+// 				aiSuggested,
+// 				handleClassSelectionModeChange,
+				goToNextStep,
+				goToPreviousStep,
+				scrollToStepperTop,
+				stepper,
+				oldResultsHeaders,
+				searchExpanded,
+				returnSingleOwner,
+				getColor,
+				selectedSimilarTMs,
+				additionalNames,
+				usageStartDate,
+				hasStartedUsing,
+				getAiSearchFeedback,
+				aiSearchFeedback,
+				searchTrademarks,
+				searchTrademarksExactClass,
+				searchTrademarksSimilarClass,
+				getSimilarMarks,
+				searchTMClicked,
+				comprehensiveSearch,
+				addSearchName,
+				removeSearchName,
+	      runTrademarkSearch,
+	      analyzeTrademark,
+				searchQuery,
+      	searchNames,
+      	includeComprehensiveSearch,
+     		startDate,
+      	searchResults,
+      	aiResponse,
+      	aiLoading,
+      	resultsHeaders,
+				clearTrademark,
+// 				uppercase,
+				toggleExpand,
+				rowClick,
+				detailsConfirmed,
+				showEditModal,
+        openEditModal,
+        saveChanges,
+        editInForm,
+				selectedFile,
+				uploadFile,
+				confirmTrademark,
+				currentTrademark,
+// 				stepperNext,
+				currentStep,
+				stepperKey,
+				currentCost,
+				loadTrademarkDetails,
+				removeTrademark,
+				tableHeaders,
+				expanded,
+				submitTrademarks,
+				trademarks,
+				clearSelections,
+				singleMarkCurrentCost,
+				bothMarkCurrentCost,
+				isClassSelected,
+				getFormattedDescription,
+				getFormattedDetails,
+				toggleAIClassSelection,
+				handleCheckboxChange,
+				selectedAIClasses,
+				handleClassSelection,
+				singleMarkCost,
+				bothMarkCost,
+				totalCost,
+				classSelectionMode,
+				numberOfClasses,
+				attorneySelectClass,
+				showAiRecommendations,
+				computedClassNumbers,
+				computedClassNumbersVariable,
+				askAiSpinner,
+				askAiClassSpinner,
+				groupedClasses,
+				addAnotherTrademark,
+        message,
+				tmType,
+// 				ownerType,
+				trademark,
+				downloadUrl,
+				confirmAndPay,
+				priceQuote,
+				owner,
+				selectedCountries,
+				query,
+				selected,
+				selectedProducts,
+				checkProducts,
+        classesList,
+        // uniqSelectedClasses,
+				items,
+				asyncFind,
+				page,
+				isLoading,
+				uniqueClassNos,
+     		selectedClasses,
+				classes,
+				toggleSelection,
+        // updateSelectedClasses,
+        updateUniqueClassNos,
+				businessDescription,
+				getChatGPTClassification,
+				chatGPTClassification,
+				formattedResponse,
+				summary,
+				getAiTmCheck,
+				chatGPTTMCheck,
+// 				buttonColor,
+
+      }
+    },
+  }
+)
+// Register VueMultiselect component globally
+app.component('VueMultiselect', window['VueMultiselect'].default);	
+app.use(vuetify)
+app.use(ElementPlus);
+app.mount('#app')
+
+
+</script>
+                  
+</body>
+</html>
